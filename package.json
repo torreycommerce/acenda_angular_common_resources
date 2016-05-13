@@ -1,0 +1,19 @@
+{
+  "name": "acenda_angular_common_ressources",
+  "version": "1.0.0",
+  "description": "Acenda's common ressources for godmode, developer and admin",
+  "main": "vendor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torreycommerce/acenda_angular_common_ressources.git"
+  },
+  "author": "Acenda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/torreycommerce/acenda_angular_common_ressources/issues"
+  },
+  "homepage": "https://github.com/torreycommerce/acenda_angular_common_ressources#readme"
+}

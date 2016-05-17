@@ -13,23 +13,24 @@ angular.module("app.directives")
         function($scope, $element, $window, $rootScope, $modal,Upload) {
 
           $scope.$watch('file', function (file) {
-            $scope.upload($scope.file);
+              if (file)
+                $scope.upload($scope.file);
           });
 
         // upload using the ngfileuploader
         $scope.upload = function (file) {
             if(typeof file === 'undefined' || !file)
-              return;            
+              return;
             $element.find('.progress-bar').removeClass('progress-bar-danger');
             $('#filesprogress').css({display: 'none'});
             $element.find('.progress-bar').css({ width: ''+0 + '%'}).addClass('active').addClass('progress-bar-info').addClass('progress-bar-striped').html('Uploading' + file.name);
             Upload.upload({
                 url: '/api/files/upload?path='+($scope.bucket?$scope.bucket:'files'),
-                data: {file: file}
+                file: [file[0]]
             }).then(function (response) {
               $element.find('.progress-bar').removeClass('active');
               $element.find('.progress-bar').removeClass('progress-bar-striped').html('Uploaded ' + response.config.data.file.name);
-              setTimeout(function() {  $('#filesprogress').hide('fade');   },1000);                
+              setTimeout(function() {  $('#filesprogress').hide('fade');   },1000);
                 if (typeof response.data.result.new_location !== undefined) {
                     if ($scope.arrayImages == null) {
                       $scope.arrayImages = [];
@@ -39,12 +40,12 @@ angular.module("app.directives")
                   }
             }, function (error) {
                 $element.find('.progress-bar').removeClass('active').addClass('progress-bar-danger');
-                $element.find('.progress-bar').removeClass('progress-bar-striped').html('Failed to upload');                
+                $element.find('.progress-bar').removeClass('progress-bar-striped').html('Failed to upload');
                 console.log('error status: ' + error.status);
             }, function (evt) {
                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                $('#filesprogress').css({display: 'block'});               
-                $element.find('.progress-bar').css({ width: ''+progressPercentage + '%'});                
+                $('#filesprogress').css({display: 'block'});
+                $element.find('.progress-bar').css({ width: ''+progressPercentage + '%'});
                 console.log('progress: ' + progressPercentage + '% ' );
             });
         };

@@ -19,7 +19,7 @@ angular.module("app.directives")
 
         // upload using the ngfileuploader
         $scope.upload = function (file) {
-            
+
             if(typeof file === 'undefined') return;
             $element.find('.progress-bar').removeClass('progress-bar-danger');
             $('#filesprogress').css({display: 'none'});
@@ -36,7 +36,7 @@ angular.module("app.directives")
                 Upload.upload({
                     url: '/api/imagebucket',
                     fields: {'policy': resp.result.policy},
-                    file: [file]
+                    file: [file[0]]
                 }).progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     $('#filesprogress').css({display: 'block'});

@@ -414,7 +414,7 @@ form.ng-submitted input.ng-invalid
 }
 
 .table-loading {
-  background-image: url('../images/Preloader_2.gif') !important;
+  background-image: url('../../../images/Preloader_2.gif') !important;
   padding: 64px !important;
   margin-bottom: 20px !important;
   background-repeat: no-repeat !important;
@@ -777,7 +777,7 @@ button:focus{
   overflow: hidden;
   background-position: 0px 1px;
   background-repeat: no-repeat;
-  background-image: url('../images/themeDesktop.png')
+  background-image: url('../../../images/themeDesktop.png')
 }
 .theme-mobile-sub {
   width: 205px;
@@ -787,7 +787,7 @@ button:focus{
   bottom: 0px;
   background-position: 0px 1px;
   background-repeat: no-repeat;
-  background-image: url('../images/themeMobile.png')
+  background-image: url('../../../images/themeMobile.png')
 }
 .theme-desktop-sub iframe{
   pointer-events: none;
@@ -834,7 +834,7 @@ button:focus{
   overflow: hidden;
   background-position: 0px 1px;
   background-repeat: no-repeat;
-  background-image: url('../images/themeDesktop.png')
+  background-image: url('../../../images/themeDesktop.png')
 }
 
 .theme-mobile {
@@ -845,7 +845,7 @@ button:focus{
   bottom: 0px;
   background-position: 0px 1px;
   background-repeat: no-repeat;
-  background-image: url('../images/themeMobile.png')
+  background-image: url('../../../images/themeMobile.png')
 }
 
 .theme-desktop iframe{
@@ -1826,14 +1826,14 @@ legend.item-border {
 
 .img-loading{
   background-color: #fff !important;
-  background-image: url('../images/Preloader_2.gif') !important;
+  background-image: url('../../../images/Preloader_2.gif') !important;
   background-repeat: no-repeat !important;
   background-position: center center !important;
   z-index: 6666 !important;
 }
 
 .custom-loading{
-  background-image: url('../images/ajax-loader.gif') !important;
+  background-image: url('../../../images/ajax-loader.gif') !important;
   padding: 20px !important;
   margin-bottom: 20px !important;
   background-repeat: no-repeat !important;

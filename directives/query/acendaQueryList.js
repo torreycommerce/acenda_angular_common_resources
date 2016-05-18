@@ -11,7 +11,7 @@ angular.module("app.directives")
                 $scope.queries = [];
                 $scope.queryCnt = 0;
                 $scope.qb = {modelname:'product',alias:'',query:''}
-             
+
                 $scope.parseQueries = function() {
                     if(typeof $scope.querymodel === 'undefined') return;
                     var lines = $scope.querymodel.split("\n");
@@ -27,37 +27,34 @@ angular.module("app.directives")
                                 var splitName = modelName.split(' as ',2);
                                 modelName = splitName[0];
                                 alias = splitName[1];
-                            }                    
+                            }
                             var qObj = {id:$scope.queryCnt, model:modelName,as:alias,query:query};
                             $scope.queryCnt++;
-                            console.log(qObj);
                             $scope.queries.push(qObj);
                         }
                     });
                 }
                 $scope.writeQueries = function() {
-                    var d = '';                    
+                    var d = '';
                     angular.forEach($scope.queries,function(q) {
                         d+= q.model + ' as ' + q.as + ':' + q.query + "\n";
                     })
-                    $scope.querymodel = d.trim();                    
+                    $scope.querymodel = d.trim();
                 }
                 $scope.showAddQuery = function() {
-                    console.log('add query');
                     $scope.qb = {modelname:'product',alias:'',query:''}
-                    $element.find('.add-query-button').hide('fade');                    
+                    $element.find('.add-query-button').hide('fade');
                     $element.find('.query-builder-section').show('fade');
                 }
                 $scope.addQuery = function() {
-                    $element.find('.add-query-button').show('fade');                    
+                    $element.find('.add-query-button').show('fade');
                     $element.find('.query-builder-section').hide('fade');
                     $scope.qb.query = JSON.stringify(JSON.parse($scope.qb.query),null,false);
                     $scope.queries.push({id:$scope.queryCnt++,model:$scope.qb.modelname,as:$scope.qb.alias,query:$scope.qb.query});
                     $scope.writeQueries();
-                    $scope.parseQueries();                    
+                    $scope.parseQueries();
                 }
                 $scope.removeQuery = function(id) {
-                    console.log('remove query ' + id);
                     var i;
                     for( i = $scope.queries.length - 1; i>=0; i--) {
                         if($scope.queries[i].id == id) {
@@ -69,10 +66,9 @@ angular.module("app.directives")
                     $scope.writeQueries();
                     $scope.parseQueries();
                 }
-                $scope.$watch('querymodel',$scope.parseQueries);     
+                $scope.$watch('querymodel',$scope.parseQueries);
                 $timeout($scope.parseQueries,1000);
             }
         ]
     }
 })
-

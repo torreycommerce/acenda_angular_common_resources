@@ -17,7 +17,6 @@ angular.module("app.directives")
 
                 $scope.updateQueryModel = function(){
                     try{
-                        console.log($scope.querymodel);
                         var json = angular.fromJson($scope.querymodel);
                         $scope.createQueryBlock($element.find(".query_block"), json, true);
                     }catch(e){}
@@ -269,7 +268,6 @@ angular.module("app.directives")
                 $scope.updateQueryTree = function() {
                     if($scope.gotfieldnames === false ) {
                         if(typeof $scope.modelname == 'undefined') {
-                            console.log('modelname:'+$element.attr('modelname'));
                             $scope.modelname = $element.attr('modelname')
                         }
                         $http.get('/api/'+$scope.modelname+'?format=fields').success(function(resp, status, headers, config) {
@@ -277,7 +275,6 @@ angular.module("app.directives")
                                 for(var i = 1 ; i<resp.result.length; i++) {
                                     $scope.fieldnames[i] = { name: resp.result[i], value: resp.result[i] };
                                 }
-                                console.log('got field names!');
                                 $scope.gotfieldnames=true;
                                 $timeout(function() {
                                     $scope.updateQueryTree();
@@ -408,9 +405,6 @@ angular.module("app.directives")
                     });
 
                     command = $scope.updateData($element.find(".query_block").first(), false);
-                    console.log("***");
-                    console.log(command);
-                    console.log("***");
                     var spaces = 4;
                     value = JSON.stringify(command, undefined, spaces);
                     if(value == '{}') {

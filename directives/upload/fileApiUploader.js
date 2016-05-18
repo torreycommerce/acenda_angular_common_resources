@@ -13,7 +13,8 @@ angular.module("app.directives")
         function($scope, $element, $window, $rootScope, $modal,Upload) {
 
           $scope.$watch('file', function (file) {
-            $scope.upload($scope.file);
+              if (file)
+                $scope.upload($scope.file);
           });
 
         // upload using the ngfileuploader
@@ -25,10 +26,10 @@ angular.module("app.directives")
             $element.find('.progress-bar').css({ width: ''+0 + '%'}).addClass('active').addClass('progress-bar-info').addClass('progress-bar-striped').html('Uploading' + file.name);
             Upload.upload({
                 url: '/api/files/upload?path='+($scope.bucket?$scope.bucket:'files'),
-                data: {file: file}
+                file: [file[0]]
             }).then(function (response) {
               $element.find('.progress-bar').removeClass('active');
-              $element.find('.progress-bar').removeClass('progress-bar-striped').html('Uploaded ' + response.config.data.file.name);
+              $element.find('.progress-bar').removeClass('progress-bar-striped').html('Uploaded ' + response.data.result.file.name);
               setTimeout(function() {  $('#filesprogress').hide('fade');   },1000);
                 if (typeof response.data.result.new_location !== undefined) {
                     if ($scope.arrayImages == null) {
@@ -45,6 +46,10 @@ angular.module("app.directives")
                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 $('#filesprogress').css({display: 'block'});
                 $element.find('.progress-bar').css({ width: ''+progressPercentage + '%'});
+<<<<<<< HEAD
+=======
+                console.log('progress: ' + progressPercentage + '% ' );
+>>>>>>> master
             });
         };
 

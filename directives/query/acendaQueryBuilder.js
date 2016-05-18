@@ -17,7 +17,6 @@ angular.module("app.directives")
 
                 $scope.updateQueryModel = function(){
                     try{
-                        console.log($scope.querymodel);
                         var json = angular.fromJson($scope.querymodel);
                         $scope.createQueryBlock($element.find(".query_block"), json, true);
                     }catch(e){}
@@ -106,7 +105,7 @@ angular.module("app.directives")
                     item.find("a.action-remove").unbind().click(function() {
                         return t.removeQuery($(this));
                     });
-                     item.find("input").unbind().change(function() {
+                     item.find("input").unbind().keyup(function() {
                         t.updateQuery();
                     });
                     item.find("select").unbind().change(function() {
@@ -140,7 +139,7 @@ angular.module("app.directives")
                     item.find("a.action-remove").unbind().click(function() {
                         return t.removeQuery($(this));
                     });
-                    item.find("input").unbind().unbind().change(function() {
+                    item.find("input").unbind().unbind().keyup(function() {
                         t.updateQuery();
                     });
                     item.find("select").unbind().change(function() {
@@ -238,7 +237,7 @@ angular.module("app.directives")
                                 var li = $element.find(".query_block li").last().clone();
                                 li.find('.field-name').first().val(field);
                                 li.find('.field-action').first().val(action);
-                                li.find('.field-value').first().val(value);
+                               if(typeof value == 'string') { li.find('.field-value').first().val(value); }
                                 li.find("ul").html('');
 
                                 if(first) {
@@ -255,6 +254,9 @@ angular.module("app.directives")
                                 li.find("a.action-remove").click(function() {
                                     return t.removeQuery($(this));
                                 });
+                                li.find("input").keyup(function() {
+                                    t.updateQuery();
+                                });
                                 li.find("input,select").change(function() {
                                     t.updateQuery();
                                 });
@@ -269,7 +271,6 @@ angular.module("app.directives")
                 $scope.updateQueryTree = function() {
                     if($scope.gotfieldnames === false ) {
                         if(typeof $scope.modelname == 'undefined') {
-                            console.log('modelname:'+$element.attr('modelname'));
                             $scope.modelname = $element.attr('modelname')
                         }
                         $http.get('/api/'+$scope.modelname+'?format=fields').success(function(resp, status, headers, config) {
@@ -277,7 +278,6 @@ angular.module("app.directives")
                                 for(var i = 1 ; i<resp.result.length; i++) {
                                     $scope.fieldnames[i] = { name: resp.result[i], value: resp.result[i] };
                                 }
-                                console.log('got field names!');
                                 $scope.gotfieldnames=true;
                                 $timeout(function() {
                                     $scope.updateQueryTree();
@@ -400,7 +400,7 @@ angular.module("app.directives")
                     $element.find("a.action-remove").first().unbind().click(function() {
                         return t.removeQuery($(this));
                     });
-                    $element.find("input").first().unbind().change(function() {
+                    $element.find("input").first().unbind().keyup(function() {
                         t.updateQuery();
                     });
                     $element.find("select").first().unbind().change(function() {
@@ -408,9 +408,6 @@ angular.module("app.directives")
                     });
 
                     command = $scope.updateData($element.find(".query_block").first(), false);
-                    console.log("***");
-                    console.log(command);
-                    console.log("***");
                     var spaces = 4;
                     value = JSON.stringify(command, undefined, spaces);
                     if(value == '{}') {

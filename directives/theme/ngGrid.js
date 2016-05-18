@@ -22,7 +22,6 @@ angular.module("app.directives")
         $scope.itemRightMargin = 5;
         $scope.itemBottomMargin = 5;
         if ($scope.ngGridItemTempl) {
-          console.log($scope.ngGridItemTempl);
           // angular.render(template, $scope.ngGridItemTempl);
         }
         $scope.displayText = "def";

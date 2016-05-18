@@ -44,7 +44,7 @@ angular.module("app.directives")
             }, function (evt) {
                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 $('#filesprogress').css({display: 'block'});
-                $element.find('.progress-bar').css({ width: ''+progressPercentage + '%'});                
+                $element.find('.progress-bar').css({ width: ''+progressPercentage + '%'});
             });
         };
 

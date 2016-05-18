@@ -18,9 +18,6 @@ angular.module("app.directives")
                 $scope.data = [];
 
                 $scope.$watch('country',function (newVal, oldVal) {
-                    console.log(newVal);
-                    console.log(oldVal);
-
                     $scope.init();
                 });
 

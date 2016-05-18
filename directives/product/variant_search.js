@@ -24,7 +24,6 @@ angular.module("app.directives")
                 $scope.globalTimeout = null;
 
                 $scope.addVariant = function(event, product, variant){
-                    console.log(product);
                     if(variant.inventory_quantity <= variant.inventory_minimum_quantity && variant.inventory_policy!='continue'){
                         event.preventDefault();
                         event.stopPropagation();

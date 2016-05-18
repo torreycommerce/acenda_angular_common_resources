@@ -339,7 +339,7 @@ angular.module("app.directives", [])
             return path = path, angular.forEach(links, function(link) {
                     var $li, $link, href;
                     return $link = angular.element(link), $li = $link.parent("li"), href = $link.attr("href"), $li.hasClass("active") &&
-                    $li.removeClass("active"), path == href ? $li.addClass("active") : void 0
+                    $li.removeClass("active"), path.indexOf(href) > -1 ? $li.addClass("active") : void 0
             })
         },
         highlightActive(links, $location.path()), $scope.$watch(path, function(newVal, oldVal) {

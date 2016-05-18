@@ -29,7 +29,7 @@ angular.module("app.directives")
                 file: [file[0]]
             }).then(function (response) {
               $element.find('.progress-bar').removeClass('active');
-              $element.find('.progress-bar').removeClass('progress-bar-striped').html('Uploaded ' + response.config.data.file.name);
+              $element.find('.progress-bar').removeClass('progress-bar-striped').html('Uploaded ' + response.data.result.file.name);
               setTimeout(function() {  $('#filesprogress').hide('fade');   },1000);
                 if (typeof response.data.result.new_location !== undefined) {
                     if ($scope.arrayImages == null) {

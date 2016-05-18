@@ -19,7 +19,7 @@ angular.module("app.directives")
 
         // upload using the ngfileuploader
         $scope.upload = function (file) {
-            
+
             if(typeof file === 'undefined') return;
             $element.find('.progress-bar').removeClass('progress-bar-danger');
             $('#filesprogress').css({display: 'none'});
@@ -41,7 +41,6 @@ angular.module("app.directives")
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     $('#filesprogress').css({display: 'block'});
                     $element.find('.progress-bar').css({ width: ''+progressPercentage + '%'});
-                    console.log('progress: ' + progressPercentage + '% ' );
                 }).success(function (data, status, headers, config) {
                     $element.find('.progress-bar').removeClass('active');
                     $element.find('.progress-bar').removeClass('progress-bar-striped').html('Uploaded ' + file.name);
@@ -54,7 +53,6 @@ angular.module("app.directives")
                           link : data.result.link});
 
                       }
-                    console.log($scope.file);
                 }).error(function (data, status, headers, config) {
                     $element.find('.progress-bar').removeClass('active').addClass('progress-bar-danger');
                     $element.find('.progress-bar').removeClass('progress-bar-striped').html('Failed to upload');
@@ -85,10 +83,7 @@ angular.module("app.directives")
         $scope.deleteImage = function (index) {
           var r = confirm("Do you want to delete this image?");
           if (r == true) {
-              //console.log($scope.$parent.main.config.params[$scope.inputName]);
               $scope.arrayImages.splice(index, 1);
-              //$scope.$parent.main.config.params[$scope.inputName] = $scope.arrayImages;
-              //console.log($scope.$parent.main.config.params[$scope.inputName]);
           }
       }
 

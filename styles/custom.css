@@ -433,7 +433,7 @@ form.ng-submitted input.ng-invalid
     margin-bottom: 50px;
 }
 
-.godmode.signin-custom-header{
+.godmode .signin-custom-header{
     background-color: #CC2048 !important;
 }
 

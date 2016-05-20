@@ -3409,7 +3409,7 @@ td,th {
     border-color: #2cacaa;
   }
 
-  .godmode.btn-primary {
+  .godmode .btn-primary {
     color: #fff;
     background-color: #C03152;
     border-color: #7D263A;
@@ -3422,7 +3422,7 @@ td,th {
     border-color: #1f7b7a;
   }
 
-  .godmode.btn-primary:hover,.godmode.btn-primary:focus,.godmode.btn-primary.focus,.godmode.btn-primary:active,.godmode.btn-primary.active,.open>.godmode.btn-primary.dropdown-toggle {
+  .godmode .btn-primary:hover,.godmode .btn-primary:focus,.godmode .btn-primary.focus,.godmode .btn-primary:active,.godmode .btn-primary.active,.open>.godmode .btn-primary.dropdown-toggle {
     color: #fff;
     background-color: #B95C71;
     border-color: #984D5E;

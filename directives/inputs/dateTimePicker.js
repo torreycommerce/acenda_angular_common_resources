@@ -37,7 +37,11 @@ angular.module("app.directives")
             .on('dp.change', function (e) {
               if (ngModelCtrl) {
                 $timeout(function () {
-                  ngModelCtrl.$setViewValue(moment(e.target.value).toISOString());
+                  var dx = new Date(e.target.value);
+                  dx =  dx.toISOString();
+                  if(dx) {
+                     ngModelCtrl.$setViewValue(moment(dx).toISOString());
+                   }
                 });
               }
             })
@@ -46,8 +50,11 @@ angular.module("app.directives")
           function setPickerValue() {
             var date = null;
 
-            if (ngModelCtrl && ngModelCtrl.$viewValue) {;
-              date = moment(ngModelCtrl.$viewValue).format('LLL');
+            if (ngModelCtrl && ngModelCtrl.$viewValue) {
+                var dx = new Date(ngModelCtrl.$viewValue);
+                if(dx.toISOString()) {
+                  date = moment(dx.toISOString()).format('LLL'); 
+                }
             }
 
             $element

@@ -37,11 +37,13 @@ angular.module("app.directives")
             .on('dp.change', function (e) {
               if (ngModelCtrl) {
                 $timeout(function () {
-                  var dx = new Date(e.target.value);
-                  dx =  dx.toISOString();
-                  if(dx) {
-                     ngModelCtrl.$setViewValue(moment(dx).toISOString());
-                   }
+                    if (typeof e.target.value !== 'undefined' && e.target.value) {
+                        var dx = new Date(e.target.value);
+                        dx =  dx.toISOString();
+                        if(dx) {
+                            ngModelCtrl.$setViewValue(moment(dx).toISOString());
+                        }
+                    }
                 });
               }
             })
@@ -53,7 +55,7 @@ angular.module("app.directives")
             if (ngModelCtrl && ngModelCtrl.$viewValue) {
                 var dx = new Date(ngModelCtrl.$viewValue);
                 if(dx.toISOString()) {
-                  date = moment(dx.toISOString()).format('LLL'); 
+                  date = moment(dx.toISOString()).format('LLL');
                 }
             }
 

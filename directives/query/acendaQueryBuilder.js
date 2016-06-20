@@ -388,6 +388,10 @@ angular.module("app.directives")
                 $scope.updateQuery = function() {
                     if($scope.gotfieldnames === false) return;
 
+                    if($scope.querymodel == "") {
+                        $scope.querymodel = "{}";
+                    }
+                    
                     $scope.updateLabels($element.find(".query_block").first(), false);
 
                     var t = $scope;

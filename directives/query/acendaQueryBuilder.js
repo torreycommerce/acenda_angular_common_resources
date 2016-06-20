@@ -413,6 +413,9 @@ angular.module("app.directives")
                     if(value == '{}') {
                         value = "";
                     }
+                    if(value == '""') {
+                        value = "";
+                    }
                     $scope.querymodel = value;
 
                 }

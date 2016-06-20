@@ -35,6 +35,10 @@ angular.module("app.directives")
                     }
                     $scope.updateQuery();
 
+                    if($scope.querymodel == "") {
+                        $scope.querymodel = "{}";
+                    }
+                    
                     $element.find('.table-dynamic').scope().setTableName($scope.modelname);
                     $element.find('.table-dynamic').scope().query = angular.fromJson($scope.querymodel);
                     $element.find('.table-dynamic').scope().loaded = false;
@@ -391,7 +395,7 @@ angular.module("app.directives")
                     if($scope.querymodel == "") {
                         $scope.querymodel = "{}";
                     }
-                    
+
                     $scope.updateLabels($element.find(".query_block").first(), false);
 
                     var t = $scope;

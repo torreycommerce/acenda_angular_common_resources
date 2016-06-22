@@ -35,8 +35,7 @@ angular.module("app.directives")
             if (typeof resp.result.id !== undefined && typeof resp.result.policy !== undefined) {
                 Upload.upload({
                     url: '/api/imagebucket',
-                    fields: {'policy': resp.result.policy},
-                    file: [file[0]]
+                    data: {file: file,policy:resp.result.policy}
                 }).progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     $('#filesprogress').css({display: 'block'});

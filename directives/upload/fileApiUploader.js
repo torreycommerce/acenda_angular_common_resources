@@ -26,7 +26,7 @@ angular.module("app.directives")
             $element.find('.progress-bar').css({ width: ''+0 + '%'}).addClass('active').addClass('progress-bar-info').addClass('progress-bar-striped').html('Uploading' + file.name);
             Upload.upload({
                 url: '/api/files/upload?path='+($scope.bucket?$scope.bucket:'files'),
-                file: [file[0]]
+                data: {file: file,path: ($scope.bucket?$scope.bucket:'files')}
             }).then(function (response) {
               $element.find('.progress-bar').removeClass('active');
               $element.find('.progress-bar').removeClass('progress-bar-striped').html('Uploaded ' + response.data.result.file.name);

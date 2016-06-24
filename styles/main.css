@@ -4100,10 +4100,12 @@ td,th {
 
   .input-group-btn:first-child>.btn,.input-group-btn:first-child>.btn-group {
     margin-right: -1px;
+    padding-bottom: 7px;
   }
 
   .input-group-btn:last-child>.btn,.input-group-btn:last-child>.btn-group {
     margin-left: -1px;
+    padding-bottom: 7px;
   }
 
   .nav {

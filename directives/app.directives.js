@@ -781,7 +781,6 @@ angular.module("app.directives", [])
                {
                    input=$(document.getElementById(scope.myid));
                    scope.hidden = scope.myid.concat("hidden");
-                   console.log(scope.hidden);
                    input.intlTelInput({
                      utilsScript: "/../../scripts/intl-tel-input/build/js/utils.js"
                    });

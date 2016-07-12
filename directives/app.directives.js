@@ -124,7 +124,7 @@ angular.module("app.directives", [])
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.bind('click', function(event) {
-        var fn = $parse(attrs.ngReallyClick);        
+        var fn = $parse(attrs.ngReallyClick);
         var modalInstance = $modal.open({
           controller: 'ngReallyCtrl',
           templateUrl: 'templates/ngReallyModal.html',
@@ -763,3 +763,38 @@ angular.module("app.directives", [])
     }]
   }
 }])
+
+.directive('phone', function() {
+   return{
+       restrict: 'E',
+       scope: {
+           ngm: '=ngModel',
+           myid:  '@myid',
+       },
+       template: '<input type="text" style="display:none" id="{{hidden}}"  ng-model="ngm" >\
+                   <input type="tel" id="{{myid}}" class="form-control" value="{{ngm}}" onKeyPress="return numbersonly(this, event)" maxlength="16">',
+
+       link: function(scope, element, attrs){
+           var input;
+           scope.$watch('myid', function() {
+               if(scope.myid)
+               {
+                   input=$(document.getElementById(scope.myid));
+                   scope.hidden = scope.myid.concat("hidden");
+                   input.intlTelInput({
+                     utilsScript: "/../../scripts/intl-tel-input/build/js/utils.js"
+                   });
+
+                   $("#".concat(scope.hidden)).val(input.intlTelInput("getNumber"));
+
+                   input.on("keyup change", function() {
+                       $("#".concat(scope.hidden)).val(input.intlTelInput("getNumber"));
+                       angular.element($("#".concat(scope.hidden)).triggerHandler('input'));
+                   });
+
+               }
+           });
+
+     }
+ };
+})

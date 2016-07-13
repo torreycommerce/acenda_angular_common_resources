@@ -3365,3 +3365,5 @@ input:-ms-input-placeholder {
   justify-content: center;
   align-items: center;
 }
+
+.page-services-library theme-previewer, .page-services-library theme-previewer .img-responsive {height:80px;}

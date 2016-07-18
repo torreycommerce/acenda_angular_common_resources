@@ -776,12 +776,13 @@ angular.module("app.directives", [])
                    <input type="tel" id="{{myid}}" class="form-control" value="{{ngm}}" onKeyPress="return numbersonly(this, event)" maxlength="16">',
 
        link: function(scope, element, attrs){
-           var input;
+           var input = 0;
            scope.$watch('myid', function() {
                if(scope.myid && input==0)
                {
                    input=$(document.getElementById(scope.myid));
                    var rand = Math.floor(Math.random() * 1000);
+                   scope.myid = scope.myid.concat(rand);
                    scope.hidden = scope.myid.concat("hidden");
                    input.intlTelInput({
                      utilsScript: "/../../scripts/intl-tel-input/build/js/utils.js"

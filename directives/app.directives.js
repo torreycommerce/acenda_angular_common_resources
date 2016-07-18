@@ -765,6 +765,7 @@ angular.module("app.directives", [])
 }])
 
 .directive('phone', function() {
+    var input = 0;
    return{
        restrict: 'E',
        scope: {
@@ -777,8 +778,10 @@ angular.module("app.directives", [])
        link: function(scope, element, attrs){
            var input;
            scope.$watch('myid', function() {
-               if(scope.myid)
+               if(scope.myid && input==0)
                {
+                   input=$(document.getElementById(scope.myid));
+                   var rand = Math.floor(Math.random() * 1000);
                    input=$(document.getElementById(scope.myid));
                    scope.hidden = scope.myid.concat("hidden");
                    input.intlTelInput({

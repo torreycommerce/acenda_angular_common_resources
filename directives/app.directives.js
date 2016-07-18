@@ -782,7 +782,6 @@ angular.module("app.directives", [])
                {
                    input=$(document.getElementById(scope.myid));
                    var rand = Math.floor(Math.random() * 1000);
-                   input=$(document.getElementById(scope.myid));
                    scope.hidden = scope.myid.concat("hidden");
                    input.intlTelInput({
                      utilsScript: "/../../scripts/intl-tel-input/build/js/utils.js"

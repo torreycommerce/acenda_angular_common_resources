@@ -764,6 +764,7 @@ angular.module("app.directives", [])
   }
 }])
 
+<<<<<<< HEAD
 .directive('countries',['$compile', function($compile) {
     return{
         restrict:'E',
@@ -847,6 +848,8 @@ angular.module("app.directives", [])
     }
 }])
 
+=======
+>>>>>>> 087e6512e304692df2585441cf53ef46a8583c38
 .directive('phone', function() {
     var input = 0;
    return{

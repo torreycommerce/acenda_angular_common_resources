@@ -764,6 +764,90 @@ angular.module("app.directives", [])
   }
 }])
 
+
+.directive('countries',['$compile', function($compile) {
+    return{
+        restrict:'E',
+        scope: {
+            ngm: '=ngModel'
+        },
+        template: '<input type=text name="States" ng-model="ngm" class="form-control" id="countriesDropdown" placeholder="Country">',
+        link: function(scope, element, attrs)
+        {
+            api.get('region', 0, function(response){
+                        var countries = response;
+                        var template = '<select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="Country" \
+                                            name="Countries" ng-model="ngm" class="form-control" id="countriesDropdown"> \
+                                        <option value="" disabled selected>Country</option>';
+                        for(var i = 0; i < countries.length; i++)
+                        {
+                            template = template.concat("\\\n<option value="+countries[i].value+" ")
+                            if(i == 0)
+                            {
+                                template = template.concat("selected");
+                            }
+                            template = template.concat(">"+countries[i].label+"</option>");
+                        }
+                        element.replaceWith($compile(template)(scope));
+                        return template;
+                    }
+                );
+        }
+    }
+}])
+.directive("states", ['$compile', function($compile) {
+
+    return{
+        restrict:'E',
+        scope: {
+            ngm: '=ngModel',
+            ngmCountry: '=ngmCountry'
+        },
+        template: '<input type=text name="States" ng-model="ngm" class="form-control" id="statesDropdown" placeHolder="State/Province">',
+        link: function(scope, element, attrs)
+        {
+            scope.init = false;
+            scope.$watch('ngmCountry', function(){
+                if(!scope.ngmCountry) return;
+                api.get('region/states/' + scope.ngmCountry, 0 , function(response){
+                            var states = response;
+                            var template;
+                            if(states[0].value){
+                                 template = '<select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" \
+                                                    name="States" ng-model="ngm" class="form-control" id="statesDropdown"> \
+                                                <option value="" disabled selected>State/Province</option>';
+
+                                for(var i = 0; i < states.length; i++)
+                                {
+                                    template = template.concat("\\\n<option value="+states[i].value+" ")
+                                    if(i == 0)
+                                    {
+                                        template = template.concat("selected='selected' ");
+                                    }
+                                    template = template.concat(">"+states[i].label+"</option>");
+                                }
+                            }
+                            else{
+                                template = '<input type=text name="States" ng-model="ngm" class="form-control" id="statesDropdown" placeHolder="State/Province">'
+                            }
+                            if(scope.init){
+                                $(document.getElementById("statesDropdown")).replaceWith($compile(template)(scope));
+                            }
+                            else{
+                                element.replaceWith($compile(template)(scope));
+                                scope.init = true;
+                            }
+
+                            return template;
+                        }
+                    );
+            })
+
+
+        }
+    }
+}])
+
 .directive('phone', function() {
     var input = 0;
    return{

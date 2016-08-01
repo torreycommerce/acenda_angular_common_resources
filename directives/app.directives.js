@@ -854,6 +854,7 @@ angular.module("app.directives", [])
                             }
                             //no states, just make a text field.
                             else{
+                                scope.ngm = "";
                                 template = '<input type=text name="States" ng-model="ngm" class="form-control" id="{{actualid}}" placeHolder="State/Province" value="">'
                             }
 

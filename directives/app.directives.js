@@ -822,7 +822,7 @@ angular.module("app.directives", [])
                 scope.actualid = scope.myid;
             }
             else{
-                scope.actualid = "countriesDropdown";
+                scope.actualid = "statesDropdown";
             }
 
             //wait for country value

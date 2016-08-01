@@ -764,29 +764,28 @@ angular.module("app.directives", [])
   }
 }])
 
-
 .directive('countries',['$compile', function($compile) {
     return{
         restrict:'E',
         scope: {
-            ngm: '=ngModel'
+            ngm: '=ngModel',
+            myid: '='
         },
-        template: '<input type=text name="States" ng-model="ngm" class="form-control" id="countriesDropdown" placeholder="Country">',
+
+        template: '<input type=text name="States" ng-model="ngm" class="form-control" id="{{myid}}" placeholder="Country">',
         link: function(scope, element, attrs)
         {
+            if(!scope.myid){
+                scope.myid = "countriesDropdown";
+            }
             api.get('region', 0, function(response){
                         var countries = response;
                         var template = '<select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="Country" \
-                                            name="Countries" ng-model="ngm" class="form-control" id="countriesDropdown"> \
-                                        <option value="" disabled selected>Country</option>';
+                                            name="Countries" ng-model="ngm" class="form-control" ng-init="ngm=\'' + countries[0].value + '\'" id="{{myid}}">' // \
+                                        //<option value="" disabled selected hidden style="display:none"></option>';
                         for(var i = 0; i < countries.length; i++)
                         {
-                            template = template.concat("\\\n<option value="+countries[i].value+" ")
-                            if(i == 0)
-                            {
-                                template = template.concat("selected");
-                            }
-                            template = template.concat(">"+countries[i].label+"</option>");
+                            template = template.concat("\n<option value="+countries[i].value+">"+countries[i].label+"</option>");
                         }
                         element.replaceWith($compile(template)(scope));
                         return template;
@@ -801,12 +800,15 @@ angular.module("app.directives", [])
         restrict:'E',
         scope: {
             ngm: '=ngModel',
-            ngmCountry: '=ngmCountry'
+            ngmCountry: '=ngmCountry', //use this to bind to country field
+            myid: '='
         },
-        template: '<input type=text name="States" ng-model="ngm" class="form-control" id="statesDropdown" placeHolder="State/Province">',
+        template: '<input type=text name="States" ng-model="ngm" class="form-control" id="{{myid}}" placeHolder="State/Province">',
         link: function(scope, element, attrs)
         {
-            scope.init = false;
+            if(!scope.myid){
+                scope.myid = "statesDropdown";
+            }
             scope.$watch('ngmCountry', function(){
                 if(!scope.ngmCountry) return;
                 api.get('region/states/' + scope.ngmCountry, 0 , function(response){
@@ -814,36 +816,23 @@ angular.module("app.directives", [])
                             var template;
                             if(states[0].value){
                                  template = '<select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" \
-                                                    name="States" ng-model="ngm" class="form-control" id="statesDropdown"> \
-                                                <option value="" disabled selected>State/Province</option>';
+                                                    name="States" ng-model="ngm" class="form-control" ng-init="ngm=\'' + states[0].value + '\'"id="{{myid}}">' //\
+                                                //<option value="" disabled selected style="display:none">State/Province</option>';
 
                                 for(var i = 0; i < states.length; i++)
                                 {
-                                    template = template.concat("\\\n<option value="+states[i].value+" ")
-                                    if(i == 0)
-                                    {
-                                        template = template.concat("selected='selected' ");
-                                    }
-                                    template = template.concat(">"+states[i].label+"</option>");
+                                    template = template.concat("\n<option value="+states[i].value+">"+states[i].label+"</option>");
                                 }
                             }
                             else{
-                                template = '<input type=text name="States" ng-model="ngm" class="form-control" id="statesDropdown" placeHolder="State/Province">'
+                                template = '<input type=text name="States" ng-model="ngm" class="form-control" id="{{myid}}" placeHolder="State/Province" value="">'
                             }
-                            if(scope.init){
-                                $(document.getElementById("statesDropdown")).replaceWith($compile(template)(scope));
-                            }
-                            else{
-                                element.replaceWith($compile(template)(scope));
-                                scope.init = true;
-                            }
-
+                            scope.ngm = "";
+                            $(document.getElementById(scope.myid)).replaceWith($compile(template)(scope));
                             return template;
                         }
                     );
             })
-
-
         }
     }
 }])

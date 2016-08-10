@@ -764,6 +764,110 @@ angular.module("app.directives", [])
   }
 }])
 
+.directive('countries',['$compile', function($compile) {
+    return{
+        restrict:'E',
+        scope: {
+            ngm: '=ngModel',
+            myid: '@myid',
+            actualid: '=actualid'
+        },
+
+        template: '<input type=text name="Countries" ng-model="ngm" class="form-control" id="{{actualid}}" placeholder="Country">',
+        link: function(scope, element, attrs)
+        {
+            //set id to provided id, else set to default
+            if(scope.myid){
+                scope.actualid = scope.myid;
+            }
+            else{
+                scope.actualid = "countriesDropdown";
+            }
+            api.get('region', 0, function(response){
+
+                        var countries = response;
+                        var template = '<select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="Country" \
+                                            name="Countries" ng-model="ngm" class="form-control" id="{{actualid}}">' // \
+                        //check to see if we have current value of country, if we don't, set value to US
+                        if(!scope.ngm){
+                            scope.ngm = countries[0].value;
+                        }
+                        //build options
+                        for(var i = 0; i < countries.length; i++)
+                        {
+                            template = template.concat("\n<option value="+countries[i].value+">"+countries[i].label+"</option>");
+                        }
+                        $(document.getElementById(scope.actualid)).replaceWith($compile(template)(scope));
+                        return template;
+                    }
+                );
+        }
+    }
+}])
+.directive("states", ['$compile', function($compile) {
+
+    return{
+        restrict:'E',
+        scope: {
+            ngm: '=ngModel',
+            ngmCountry: '=ngmCountry', //use this to bind to country field
+            myid: '@myid',
+            actualid: '=actualid'
+        },
+        template: '<input type=text name="States" ng-model="ngm" class="form-control" id="{{actualid}}" placeHolder="State/Province">',
+        link: function(scope, element, attrs)
+        {
+            //set id to provided id, else set to default
+            if(scope.myid){
+                scope.actualid = scope.myid;
+            }
+            else{
+                scope.actualid = "statesDropdown";
+            }
+
+            //wait for country value
+            scope.$watch('ngmCountry', function(){
+
+                if(!scope.ngmCountry) return; //no country yet, wait longer
+                api.get('region/states/' + scope.ngmCountry, 0 , function(response){
+                            var states = response;
+                            var template;
+                            //console.log(scope.ngm);
+
+                            var isHere = false; //is current value of state in the dropdown list; if it isn't, set value to first in this list.
+                            //if this country has states, build template with all the options
+                            if(states[0].value){
+                                 template = '<select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" \
+                                                    name="States" ng-model="ngm" class="form-control" id="{{actualid}}">' //\
+                                //build options
+                                for(var i = 0; i < states.length; i++)
+                                {
+                                    template = template.concat("\n<option value="+states[i].value+">"+states[i].label+"</option>");
+                                    //check if current  ngm is same as one in list
+                                    if(!isHere && scope.ngm == states[i].value){
+                                        isHere = true;
+                                    }
+                                }
+                                if(!isHere){
+                                    scope.ngm = states[0].value; //not here, set the current value to first in list.
+                                }
+                            }
+                            //no states, just make a text field.
+                            else{
+                                scope.ngm = "";
+                                template = '<input type=text name="States" ng-model="ngm" class="form-control" id="{{actualid}}" placeHolder="State/Province" value="">'
+                            }
+
+                            //replace current template with new one
+                            $(document.getElementById(scope.actualid)).replaceWith($compile(template)(scope));
+                            return template;
+                        }
+                    );
+            })
+        }
+    }
+}])
+
 .directive('phone', function() {
     var input = 0;
    return{

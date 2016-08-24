@@ -867,7 +867,26 @@ angular.module("app.directives", [])
         }
     }
 }])
+.directive('invoice', ['$compile', function($compile){
+    return{
+        restrict: 'E',
+        scope: {
+        },
+        template:'loading...',
+        link: function(scope, element, attrs){
+            scope.$watch('$parent.invoice_template', function(result) {
+                if(scope.$parent.invoice_template && result){
+                    //element.replaceWith(scope.template);
+                    //$compile(element)(scope);
+                    element.replaceWith($compile(scope.$parent.invoice_template)(scope.$parent));
+                    //return 0;
+                }
+            });
 
+      }
+  };
+
+}])
 .directive('phone', function() {
     var input = 0;
    return{

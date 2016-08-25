@@ -872,14 +872,12 @@ angular.module("app.directives", [])
         restrict: 'E',
         scope: {
         },
-        template:'loading...',
+        template: '<div id = "replaceThisInvoiceTemplate"></div>',
         link: function(scope, element, attrs){
-            scope.$watch('$parent.invoice_template', function(result) {
-                if(scope.$parent.invoice_template && result){
-                    //element.replaceWith(scope.template);
-                    //$compile(element)(scope);
-                    element.replaceWith($compile(scope.$parent.invoice_template)(scope.$parent));
-                    //return 0;
+                scope.$watch('$parent.invoice_template', function(result, previous) {
+                if(result && (result != previous)){
+                    var temp = '<div id = "replaceThisInvoiceTemplate">' + scope.$parent.invoice_template + '</div>';
+                    $(document.getElementById("replaceThisInvoiceTemplate")).replaceWith($compile(temp)(scope.$parent));
                 }
             });
 

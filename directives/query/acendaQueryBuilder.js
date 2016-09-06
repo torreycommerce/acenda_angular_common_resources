@@ -241,7 +241,7 @@ angular.module("app.directives")
                                 var li = $element.find(".query_block li").last().clone();
                                 li.find('.field-name').first().val(field);
                                 li.find('.field-action').first().val(action);
-                               if(typeof value == 'string') { li.find('.field-value').first().val(value); }
+                                if(typeof value == 'string' || typeof value == 'number') { li.find('.field-value').first().val(value); }
                                 li.find("ul").html('');
 
                                 if(first) {

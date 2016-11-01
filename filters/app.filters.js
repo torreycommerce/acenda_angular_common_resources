@@ -192,4 +192,11 @@ angular.module("app.filters", [])
       }
     };
 })
-;
+.filter('underscoreless', function () {
+  return function (input) {
+      if (typeof input !== 'undefined') {
+          return input.replace(/_/g, ' ');
+      }
+      return input;
+  };
+});

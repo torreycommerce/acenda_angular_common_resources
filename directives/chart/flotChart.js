@@ -6,14 +6,15 @@ angular.module("app.directives")
 
       var chart = null;
       var chartoptions = {series: {
-        lines: {show:!0,fill:!0, fillColor: {colors: [{opacity:0},{opacity:.3}]}},
-        points: {show:!0,lineWidth:2,fill:!0,fillColor:"#ffffff",symbol:"circle",radius:5}
+        lines: {show:1,fill:!0, fillColor: {colors: [{opacity:0.3},{opacity:.3}]}},
+        points: {show:!0,lineWidth:2,fill:!0,fillColor:"#ffffff",symbol:"circle",radius:3}
     },
     colors: ["#31C0BE","#8170CA","#E87352"],
     tooltip: !0,
-    tooltipOpts: {defaultTheme:!1},
+    tooltipOpts: {content: "%s %y", defaultTheme: !1},
     grid: {hoverable:!0,clickable:!0,tickColor:"#f9f9f9",borderWidth:1,borderColor:"#eeeeee"},
-    xaxis: {ticks: [[1,"Jan."],[2,"Feb."],[3,"Mar."],[4,"Apr."],[5,"May"],[6,"June"],[7,"July"],[8,"Aug."],[9,"Sept."],[10,"Oct."],[11,"Nov."],[12,"Dec."]]}
+              // colors: ["#1ab394", "#464f88"],
+    xaxis: { ticks: [[1, "Jan"], [2, "Feb"], [3, "Mar"], [4, "Apr"], [5, "May"], [6, "Jun"], [7, "Jul"], [8, "Aug"], [9, "Sep"], [10, "Oct"], [11, "Nov"], [12, "Dec"]] } 
 };
 
 scope.$watch('datainput', function(newValue, oldValue){

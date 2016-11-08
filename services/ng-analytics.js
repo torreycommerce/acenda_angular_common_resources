@@ -57,8 +57,10 @@
           return ngAnalyticsService.isReady;
         }, function (isReady) {
           if (isReady) {
+                            console.log('authed google!')
             if ($scope.hideOnAuth && $scope.hideOnAuth === 'true') {
               ngAnalyticsService.ga.auth.on('success', function () {
+
                 // Render the view selector to the page.
                 $scope.hide = true;
               });
@@ -116,7 +118,7 @@
             * Create chart
             */
             chart = new ngAnalyticsService.ga.googleCharts.DataChart($scope.chart);
-
+            console.log(chart);
             // If viewSelector container -> watch if viewselector is created -> if so -> add change listener and update chart
             if ($scope.viewSelectorContainer) {
               viewWatcher = $scope.$watch(function () {

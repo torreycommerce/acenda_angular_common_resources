@@ -12583,6 +12583,9 @@ td,th {
     display: block;
     margin: 0 0 20px;
 }
+.info-tiles .small-line {
+   padding: 0px; margin: 0px; font-size: 40%; color: #ccc;
+}
 a.info-tiles, a.shortcut-tiles {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
 }

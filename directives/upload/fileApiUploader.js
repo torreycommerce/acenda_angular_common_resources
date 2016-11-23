@@ -9,8 +9,8 @@ angular.module("app.directives")
   },
   templateUrl: 'templates/template_file_api_uploader.html',
     //link : function (scope, ele, attrs) {
-        controller: ["$scope", "$element", "$window", "$rootScope", "$modal","Upload",
-        function($scope, $element, $window, $rootScope, $modal,Upload) {
+        controller: ["$scope", "$element", "$window", "$rootScope", "$uibModal","Upload",
+        function($scope, $element, $window, $rootScope, $uibModal,Upload) {
 
           $scope.$watch('file', function (file) {
               if (file)
@@ -57,17 +57,17 @@ angular.module("app.directives")
           }
 
           $scope.editAttImage = function(index){
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: "templates/file_uploader_edit.html",
-                controller: function($scope, file, $modalInstance){
+                controller: function($scope, file, $uibModalInstance){
                   $scope.file = file;
 
                   $scope.update = function(){
-                    $modalInstance.close($scope.file);
+                    $uibModalInstance.close($scope.file);
                   }
 
                   $scope.cancel = function(){
-                    $modalInstance.dismiss('cancel');
+                    $uibModalInstance.dismiss('cancel');
                   }
                 },
                 size: "md",

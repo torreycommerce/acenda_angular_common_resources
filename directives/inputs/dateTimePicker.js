@@ -54,6 +54,7 @@ angular.module("app.directives")
 
             if (ngModelCtrl && ngModelCtrl.$viewValue) {
                 var dx = new Date(ngModelCtrl.$viewValue);
+                if(isNaN(dx.getTime())) return;
                 if(dx.toISOString()) {
                   date = moment(dx.toISOString()).format('LLL');
                 }

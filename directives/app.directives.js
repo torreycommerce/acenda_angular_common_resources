@@ -101,7 +101,7 @@ angular.module("app.directives", [])
   }
 })
 
-.controller('ngReallyCtrl', function ($scope, $modalInstance, message, yesBtn, noBtn, yesBtnClass, noBtnClass) {
+.controller('ngReallyCtrl', function ($scope, $uibModalInstance, message, yesBtn, noBtn, yesBtnClass, noBtnClass) {
   $scope.message = message ? message : 'Are you sure ?';
   $scope.yesBtn = yesBtn ? yesBtn : '<i class="fa fa-trash"></i> Yes, Delete';
   $scope.noBtn = noBtn ? noBtn : 'No, Cancel';
@@ -111,21 +111,21 @@ angular.module("app.directives", [])
   $scope.response = true;
 
   $scope.ok = function () {
-      $modalInstance.close($scope.response);
+      $uibModalInstance.close($scope.response);
   };
 
   $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
+      $uibModalInstance.dismiss('cancel');
   };
 })
 
-.directive('ngReallyClick', ["$modal","$parse", function($modal,$parse) {
+.directive('ngReallyClick', ["$uibModal","$parse", function($uibModal,$parse) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.bind('click', function(event) {
         var fn = $parse(attrs.ngReallyClick);
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
           controller: 'ngReallyCtrl',
           templateUrl: 'templates/ngReallyModal.html',
           size: 'md',

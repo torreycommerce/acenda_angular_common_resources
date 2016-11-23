@@ -6,8 +6,8 @@ angular.module("app.directives")
           parammodel:     '=ngModel'
         },
         templateUrl: 'templates/parameterList.html',
-        controller: ["$scope", "$element", "$window", "$rootScope", "$location","$http","$timeout","$modal","logger",
-            function($scope, $element, $window, $rootScope, $location,$http, $timeout,$modal,logger) {
+        controller: ["$scope", "$element", "$window", "$rootScope", "$location","$http","$timeout","$uibModal","logger",
+            function($scope, $element, $window, $rootScope, $location,$http, $timeout,$uibModal,logger) {
             	$scope.params = [];
                 $scope.paramCnt = 0;
                 $scope.types = ['text','checkbox','dropdown','color','link'];

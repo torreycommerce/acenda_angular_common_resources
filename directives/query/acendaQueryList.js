@@ -6,8 +6,8 @@ angular.module("app.directives")
           querymodel:     '=ngModel'
         },
         templateUrl: 'templates/querylist.html',
-        controller: ["$scope", "$element", "$window", "$rootScope", "$location","$http","$timeout","$modal","logger",
-            function($scope, $element, $window, $rootScope, $location,$http, $timeout,$modal,logger) {
+        controller: ["$scope", "$element", "$window", "$rootScope", "$location","$http","$timeout","$uibModal","logger",
+            function($scope, $element, $window, $rootScope, $location,$http, $timeout,$uibModal,logger) {
                 $scope.queries = [];
                 $scope.queryCnt = 0;
                 $scope.qb = {modelname:'product',alias:'',query:''}

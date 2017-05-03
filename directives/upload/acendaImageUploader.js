@@ -5,6 +5,8 @@ angular.module("app.directives")
     scope: {
       arrayImages: '=ngModel',
       bucket: '@',
+      callback: '&',
+      template: '@',
       inputName: '@'
   },
   templateUrl: 'templates/template_imageuploader.html',
@@ -12,6 +14,10 @@ angular.module("app.directives")
         controller: ["$scope", "$element", "$window", "$rootScope", "$uibModal","Upload",
         function($scope, $element, $window, $rootScope, $uibModal,Upload) {
         //$scope.arrayImages = null;
+
+        if(!$scope.template) {
+          $scope.template = "templates/file_uploader_edit.html";
+        }
 
         $scope.$watch('file', function (file) {
           if( file ) { $scope.upload(file); }
@@ -50,7 +56,7 @@ angular.module("app.directives")
                         }
                         $scope.arrayImages.push({ id : data.result.id, url : data.result.url, alt: data.result.alt,
                           link : data.result.link});
-
+                        if($scope.callback !== null) $scope.callback();
                       }
                 }).error(function (data, status, headers, config) {
                     $element.find('.progress-bar').removeClass('active').addClass('progress-bar-danger');
@@ -84,16 +90,19 @@ angular.module("app.directives")
           if (r == true) {
               $scope.arrayImages.splice(index, 1);
           }
+          if($scope.callback !== null) $scope.callback();
       }
 
       $scope.editAttImage = function(index){
+        var sc = $scope;
         var modalInstance = $uibModal.open({
-            templateUrl: "templates/file_uploader_edit.html",
+            templateUrl: sc.template,
             controller: function($scope, file, $uibModalInstance){
               $scope.file = file;
 
               $scope.update = function(){
                 $uibModalInstance.close($scope.file);
+                if(sc.callback !== null) sc.callback();
               }
 
               $scope.cancel = function(){
@@ -115,7 +124,7 @@ angular.module("app.directives")
 
       $scope.updateConfigArray = function() {
         //  $scope.$parent.main.config.params[$scope.inputName] = $scope.arrayImages;
-    }
+      }
 
 }]
 };

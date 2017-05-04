@@ -11,8 +11,8 @@ angular.module("app.directives")
   },
   templateUrl: 'templates/template_imageuploader.html',
     //link : function (scope, ele, attrs) {
-        controller: ["$scope", "$element", "$window", "$rootScope", "$uibModal","Upload",
-        function($scope, $element, $window, $rootScope, $uibModal,Upload) {
+        controller: ["$scope", "$element", "$window", "$rootScope","$timeout" , "$uibModal","Upload",
+        function($scope, $element, $window, $rootScope,$timeout, $uibModal,Upload) {
         //$scope.arrayImages = null;
 
         if(!$scope.template) {
@@ -56,6 +56,9 @@ angular.module("app.directives")
                         }
                         $scope.arrayImages.push({ id : data.result.id, url : data.result.url, alt: data.result.alt,
                           link : data.result.link});
+                        $timeout(function() {
+                              $($element.find('#imageScroller')).animate({scrollLeft:100000});
+                        });
                         if($scope.callback !== null) $scope.callback();
                       }
                 }).error(function (data, status, headers, config) {

@@ -1920,7 +1920,8 @@ legend.item-border {
 
 ._bar_ {
     transition: opacity 0.3s ease-in-out;
-    position: absolute;
+    position: relative;
+    height: 30px;
     background: #1D1D1D;
     padding: 5px;
     width: 231px;

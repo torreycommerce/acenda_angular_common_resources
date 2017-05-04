@@ -12088,7 +12088,10 @@ td,th {
   #nav a:hover {
     text-decoration: none;
   }
-
+  #nav {
+      display: flex;
+  flex-direction: column;      
+  }
   #nav>li {
     position: relative;
     margin: 0;
@@ -12130,13 +12133,15 @@ td,th {
   #nav>li>a {
     position: relative;
     display: block;
-    padding: 15px 15px;
+    padding: 10px 10px;
     -moz-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
   }
-
+  #nav>li.spacer {
+    margin-top: auto;
+  }
   #nav a:hover, #nav a:focus {
     text-decoration: none;
   }
@@ -12149,7 +12154,7 @@ td,th {
 
   #nav>li>.icon-has-ul {
     position: absolute;
-    top: 18px;
+    top: 12px;
     right: 15px;
   }
 
@@ -12182,7 +12187,7 @@ td,th {
   #nav ul li>a {
     position: relative;
     display: block;
-    padding: 13px 0 13px 25px;
+    padding: 5px 0 5px 25px;
     -moz-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
@@ -12202,6 +12207,14 @@ td,th {
     right: 5px;
     top: 12px;
   }
+  #nav > li > a > i, #nav > li.open > ul > li > a > i   {
+    color: #798c9c;
+  }
+
+  #nav > li.active > a > i {
+    color: #fff;
+  }
+
 
   .on-canvas #nav-container {
     top: 100px;

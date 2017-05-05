@@ -12370,6 +12370,11 @@ td,th {
   .nav-min .top-header .logo #triangle {
       display: inline-block;
   }
+  .nav-min .top-header .logo #logo {
+      display: none;
+  }
+
+
   .top-header .logo>a {
     font-size: 24px;
     vertical-align: middle;

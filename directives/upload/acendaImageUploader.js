@@ -15,10 +15,6 @@ angular.module("app.directives")
         function($scope, $element, $window, $rootScope,$timeout, $uibModal,Upload) {
         //$scope.arrayImages = null;
 
-        if(!$scope.template) {
-          $scope.template = "templates/file_uploader_edit.html";
-        }
-
         $scope.$watch('file', function (file) {
           if( file ) { $scope.upload(file); }
         });
@@ -97,6 +93,9 @@ angular.module("app.directives")
       }
 
       $scope.editAttImage = function(index){
+        if(!$scope.template) {
+          $scope.template = "templates/file_uploader_edit.html";
+        }
         var sc = $scope;
         var modalInstance = $uibModal.open({
             templateUrl: sc.template,

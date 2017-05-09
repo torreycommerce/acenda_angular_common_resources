@@ -11657,9 +11657,10 @@ td,th {
     margin-top: 0;
   }
 
+
   .page-signin .signin-header,.page-signup .signin-header,.page-forgot .signin-header {
     padding: 25px 0;
-    background-color: #00c7f5;
+    background-color: #dfe0e6;
   }
 
   .page-signin .logo,.page-signup .logo,.page-forgot .logo {
@@ -12285,11 +12286,14 @@ td,th {
     .dropdown-menu {
          z-index: 90;
     }
-    .navbar-secondary {     
-       top: 50px; left: 220px;
+    .navbar {
+       width: 100%;
+    }
+    .navbar-secondary { 
+       position: fixed; 
        width: calc(100% - 220px);
-       z-index: 2;
-       background-color: #fff;      
+       z-index: 4;
+       background-color: #fafafa;      
     }
     .nav-min .navbar-secondary {
       left: 60px;
@@ -13497,6 +13501,7 @@ a.info-tiles, a.shortcut-tiles {
   background: #66B5D7;
   height: 3px;
   opacity: 0.9;  
+  z-index: 1;
 }
  .table-bordered>thead>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>tfoot>tr>td {
   border-width: 0px 0px 1px 0px;

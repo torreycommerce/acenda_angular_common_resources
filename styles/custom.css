@@ -427,9 +427,11 @@ form.ng-submitted input.ng-invalid
 }
 
 .signin-custom-header{
-    background-color: #31C0BE !important;
-    box-shadow: 0px 2px 27px -5px #333;
-    border-bottom: 1px solid white;
+
+    background: url(https://cdn.acenda.com/swift/v1/acendacom/images/bucket/files/seamless-noise-bg.png),radial-gradient(ellipse at center,#00c7f5 0,#00a7cc 100%) !important;;
+
+   // box-shadow: 0px 2px 27px -5px #333;
+    border-bottom: 1px solid #eee;
     margin-bottom: 50px;
 }
 
@@ -466,7 +468,7 @@ form.ng-submitted input.ng-invalid
     background-color: white;
     padding-bottom: 90px;
     box-shadow: 0px 0px 6px -2px #333 inset;
-    border-bottom: 1px dotted white;
+    //border-bottom: 1px dotted white;
 }
 
 fieldset.item-border {

@@ -240,6 +240,7 @@ td,th {
       display: none;
     }
 
+
     .btn>.caret,.dropup>.btn>.caret {
       border-top-color: #000 !important;
     }
@@ -1099,7 +1100,7 @@ td,th {
     font-size: 14px;
     line-height: 1.42857;
     color: #767676;
-    background-color: #f3f3f3;
+    background-color: #eaeaea;
   }
 
   input,button,select,textarea {
@@ -7348,26 +7349,28 @@ td,th {
     white-space: nowrap;
   }
 
-  .table-dynamic .table-bordered thead th .glyphicon-chevron-up,.table-dynamic .table-bordered thead th .glyphicon-chevron-down {
+  .table-dynamic thead th .fa-chevron-up,.table-dynamic  thead th .fa-chevron-down {
     position: absolute;
-    color: #999;
+    color: #000;
   }
 
-  .table-dynamic .table-bordered thead th .glyphicon-chevron-up:hover,.table-dynamic .table-bordered thead th .glyphicon-chevron-down:hover {
+  .table-dynamic  thead th .fa-chevron-up:hover,.table-dynamic thead th .fa-chevron-down:hover {
     color: #31C0BE;
     cursor: pointer;
   }
 
-  .table-dynamic .table-bordered thead th .glyphicon-chevron-up.active,.table-dynamic .table-bordered thead th .glyphicon-chevron-down.active {
+  .table-dynamic  thead th .fa-chevron-up.active,.table-dynamic  thead th .fa-chevron-down.active {
     color: #31C0BE;
   }
 
-  .table-dynamic .table-bordered thead th .glyphicon-chevron-up {
-    top: 4px;
-    right: 5px;
+  .table-dynamic  thead th .fa-chevron-up {
+    font-size: 8px;
+    top: 8px;
+    right: 6px;
   }
 
-  .table-dynamic .table-bordered thead th .glyphicon-chevron-down {
+  .table-dynamic  thead th .fa-chevron-down {
+    font-size: 8px;
     top: 18px;
     right: 6px;
   }
@@ -7777,7 +7780,7 @@ td,th {
   }
 
   .ui-select>select {
-    z-index: 9;
+    z-index: 1;
     display: block;
     position: relative;
     padding: 10px 15px 10px 10px;
@@ -11330,6 +11333,9 @@ td,th {
   .page {
     padding: 15px;
   }
+  .page-dashboard {
+    //padding: 15px;
+  }
 
   .page-form-ele h3 {
     margin: 0;
@@ -11653,7 +11659,7 @@ td,th {
 
   .page-signin .signin-header,.page-signup .signin-header,.page-forgot .signin-header {
     padding: 25px 0;
-    background-color: #dfe0e6;
+    background-color: #00c7f5;
   }
 
   .page-signin .logo,.page-signup .logo,.page-forgot .logo {
@@ -12147,7 +12153,7 @@ td,th {
   }
 
   #nav>li.active>a {
-    background-color: #31C0BE;
+    background-color: #393b44;
     color: #fafafa;
   }
 
@@ -12207,7 +12213,7 @@ td,th {
   }
 
   #nav ul li:hover a,#nav ul li.active a {
-    color: #31C0BE;
+    color: #ffffff;
   }
 
   .godmode #nav ul li:hover a, .godmode #nav ul li.active a {
@@ -12273,6 +12279,23 @@ td,th {
   }
 
   @media (min-width: 768px) {
+    header {
+        z-index: 20;
+    }
+    .dropdown-menu {
+         z-index: 90;
+    }
+    .navbar-secondary {     
+       top: 50px; left: 220px;
+       width: calc(100% - 220px);
+       z-index: 2;
+       background-color: #fff;      
+    }
+    .nav-min .navbar-secondary {
+      left: 60px;
+      width: calc(100% - 60px);
+    }
+
     .nav-min #nav-container {
       width: 60px;
     }
@@ -12606,6 +12629,7 @@ td,th {
     width: 100%;
     left: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     -webkit-overflow-scrolling: -blackberry-touch;
     -moz-transition: none;
@@ -12643,7 +12667,14 @@ td,th {
   .form-validation .ng-invalid.ng-dirty {
     border-color: #E87352;
   }
-
+.info-tiles .tiles-heading {
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.20);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.20);
+}
+.info-tiles .tiles-body {
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.20);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.20);
+}
 
 .info-tiles, .shortcut-tiles {
     border-radius: 3px;
@@ -12659,7 +12690,6 @@ a.info-tiles, a.shortcut-tiles {
 .info-tiles .tiles-heading {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    box-shadow: 0 -50px 0 0 rgba(255, 255, 255, 0.1) inset;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: normal;
@@ -13458,6 +13488,20 @@ a.info-tiles, a.shortcut-tiles {
     background: #0099d4 none repeat scroll 0 0;
 }
 
-
-
-
+.table-acenda>td,.table-acenda>tr {
+  border: 0px !important;
+}
+#loading-bar .bar {
+  position: absolute;
+  top: 0px;
+  background: #66B5D7;
+  height: 3px;
+  opacity: 0.9;  
+}
+ .table-bordered>thead>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>tfoot>tr>td {
+  border-width: 0px 0px 1px 0px;
+}
+.table-dynamic .table-bordered {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}

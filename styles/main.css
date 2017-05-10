@@ -13491,7 +13491,9 @@ a.info-tiles, a.shortcut-tiles {
 .info-tiles.tiles-twitter:hover .tiles-footer {
     background: #0099d4 none repeat scroll 0 0;
 }
-
+.table-acenda {
+      border-collapse: none;
+}
 .table-acenda>td,.table-acenda>tr {
   border: 0px !important;
 }
@@ -13506,6 +13508,9 @@ a.info-tiles, a.shortcut-tiles {
  .table-bordered>thead>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>tfoot>tr>td {
   border-width: 0px 0px 1px 0px;
   max-width: 300px;
+}
+.table-bordered {
+    border-collapse: separate;
 }
 .table-dynamic .table-bordered {
     border-top: 1px solid #ddd;

@@ -11331,10 +11331,10 @@ td,th {
   }
 
   .page {
-    padding: 15px;
+    //padding: 15px;
   }
   .page-dashboard {
-    //padding: 15px;
+    padding: 15px;
   }
 
   .page-form-ele h3 {
@@ -13505,10 +13505,27 @@ a.info-tiles, a.shortcut-tiles {
   opacity: 0.9;  
   z-index: 1;
 }
- .table-bordered>thead>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>tfoot>tr>td {
+ .table-dynamic .table-bordered>thead>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>tfoot>tr>td {
   border-width: 0px 0px 1px 0px;
+  padding-left: 6px;
   max-width: 300px;
   vertical-align: middle;
+}
+#content > div > div > section > dynamic-table > div.table-responsive > table {
+     border-width: 1px 0px 0px 0px ;
+}
+.table-dynamic .table-bordered thead th>.th {
+  vertical-align: middle;  
+}
+.table-dynamic .table-bordered thead th {
+  border: none;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;  
+}
+#content > div > div > section > dynamic-table > div.table-responsive > table > thead > tr > th:last-child
+{
+    border-right: 0px;
 }
 .table-bordered {
     border-collapse: separate;
@@ -13516,4 +13533,17 @@ a.info-tiles, a.shortcut-tiles {
 .table-dynamic .table-bordered {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+}
+#content > div > div > strong > div > div > div {
+
+   margin-right: 10px;
+
+}
+#content > div > div > section > div > strong {
+    vertical-align: middle;
+}
+.panel-icon {
+  font-size: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
 }

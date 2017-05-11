@@ -13534,6 +13534,14 @@ a.info-tiles, a.shortcut-tiles {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
+.table-dynamic .ui-checkbox input[type="checkbox"]:checked+span:after {
+  left: 10px;
+}
+#content > div > div > section > dynamic-table > div.table-responsive > table > thead > tr > th:nth-child(1) > div > label > span:after {
+  left: 8px;
+
+}
+
 #content > div > div > strong > div > div > div {
 
    margin-right: 10px;
@@ -13547,3 +13555,26 @@ a.info-tiles, a.shortcut-tiles {
   vertical-align: middle;
   margin-right: 5px;
 }
+.tab-body {
+  padding: 0px 10px;
+
+
+}
+.tab-body hr {
+   margin-top: 5px;
+   margin-bottom: 5px;
+
+}
+.panel {
+
+    border-radius: 3px;  
+}
+
+h8 {
+  font-weight: bold;
+  font-size: 16px;
+    color: #538DA7;
+
+}
+
+

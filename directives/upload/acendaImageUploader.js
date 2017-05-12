@@ -110,6 +110,7 @@ angular.module("app.directives")
               $scope.cancel = function(){
                 $uibModalInstance.dismiss('cancel');
               }
+
             },
             size: "md",
             resolve: {

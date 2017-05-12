@@ -2,7 +2,7 @@ angular.module("app.directives")
 .directive('customAttribute', ["$http", function ($http) {
   return {
     templateUrl: 'templates/custom-attribute.html',
-    restrict: 'AE',
+    restrict: 'E',
     scope: {
       modelname: '@modelname',
       objectvalue: '=',

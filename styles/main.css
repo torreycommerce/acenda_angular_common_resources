@@ -13542,6 +13542,7 @@ a.info-tiles, a.shortcut-tiles {
 
 }
 
+
 #content > div > div > strong > div > div > div {
 
    margin-right: 10px;
@@ -13557,8 +13558,6 @@ a.info-tiles, a.shortcut-tiles {
 }
 .tab-body {
   padding: 0px 10px;
-
-
 }
 .tab-body hr {
    margin-top: 5px;
@@ -13566,7 +13565,6 @@ a.info-tiles, a.shortcut-tiles {
 
 }
 .panel {
-
     border-radius: 3px;  
 }
 
@@ -13576,5 +13574,10 @@ h8 {
     color: #538DA7;
 
 }
+#content > div > div > div > div.col-md-4 > div:nth-child(2) > div:nth-child(2) > div > div > tags-input-object > div > div {
+  overflow: scroll;
+  max-height: 200px;
 
+
+}
 

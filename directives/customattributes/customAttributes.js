@@ -2,7 +2,7 @@ angular.module("app.directives")
 .directive('customAttribute', ["$http", function ($http) {
   return {
     templateUrl: 'templates/custom-attribute.html',
-    restrict: 'E',
+    restrict: 'AE',
     scope: {
       modelname: '@modelname',
       objectvalue: '=',
@@ -10,11 +10,13 @@ angular.module("app.directives")
       paneldisplay: '=',
       emptymessage: '=',
       isorder: '=',
-      ordermethod: '='
+      ordermethod: '=',
+      hasCustom: '=ngModel'
     },
     link: function (scope, element, attr) {
       scope.init = function(){
         scope.customattr = {};
+                    console.log(scope.hasCustom)
         $http.get('/api/dataschema/' + attr.modelname).then(
           function(response)
           {
@@ -51,10 +53,12 @@ angular.module("app.directives")
                   }
               }
             }
+            scope.hasCustom = !jQuery.isEmptyObject(scope.customattr);
+            console.log(scope.hasCustom)
             scope.isEmpty = jQuery.isEmptyObject(scope.customattr);
           }, function(error)
           {
-            console.log(error);
+            console.log(scope.customattr);
           }
         );
 

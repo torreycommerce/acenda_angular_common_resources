@@ -12291,11 +12291,13 @@ td,th {
     }
     .navbar-secondary { 
        position: fixed; 
-       width: calc(100% - 220px);
        z-index: 4;
        background-color: #fafafa;      
     }
-    .nav-min .navbar-secondary {
+    .navbar-secondary.calc-width {
+       width: calc(100% - 220px);      
+    }
+    .nav-min .navbar-secondary.calc-width {
       left: 60px;
       width: calc(100% - 60px);
     }

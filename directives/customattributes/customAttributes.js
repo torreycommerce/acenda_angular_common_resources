@@ -7,6 +7,7 @@ angular.module("app.directives")
       modelname: '@modelname',
       objectvalue: '=',
       tabledisplay: '=',
+      dynamicform: '=',
       paneldisplay: '=',
       emptymessage: '=',
       isorder: '=',

@@ -52,10 +52,17 @@ angular.module("app.directives")
                         }
                         $scope.arrayImages.push({ id : data.result.id, url : data.result.url, alt: data.result.alt,
                           link : data.result.link});
+
+                        if($scope.callback !== null) {
+                          // Delay to allow page to update
+                          $timeout( function(){
+                              $scope.callback();
+                          });
+                        }
+
                         $timeout(function() {
                               $($element.find('#imageScroller')).animate({scrollLeft:100000});
                         });
-                        if($scope.callback !== null) $scope.callback();
                       }
                 }).error(function (data, status, headers, config) {
                     $element.find('.progress-bar').removeClass('active').addClass('progress-bar-danger');

@@ -23,7 +23,7 @@ angular.module("app.directives")
       '<ul>' +
       '<li data-ng-repeat="node in ' + treeModel + '">' +
       '<i ng-class="[node.type, node.collapsed]" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
-      '<span data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
+      '<span ng-class="[node.selected,node.color]" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
       '<div data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id="' + nodeId + '" data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
       '<div ng-show="node.loading"><i class="fa fa-spin fa-spinner"></i></div>' +
       '</li>' +

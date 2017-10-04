@@ -33,7 +33,7 @@ angular.module("app.directives")
               .html('Uploading ' + file.name);
             // if(typeof file === 'undefined') return;
           $http.post('/api/imagebucket/policy',  {action : 'upload', bucket : $scope.bucket} )
-          .success(function(resp, status, headers, config) {
+          .then(function(resp, status, headers, config) {
             if (typeof resp.result.id !== undefined && typeof resp.result.policy !== undefined) {
                 Upload.upload({
                     url: '/api/imagebucket',
@@ -64,7 +64,7 @@ angular.module("app.directives")
                               $($element.find('#imageScroller')).animate({scrollLeft:100000});
                         });
                       }
-                }).error(function (data, status, headers, config) {
+                },function (data, status, headers, config) {
                     $element.find('.progress-bar').removeClass('active').addClass('progress-bar-danger');
                     $element.find('.progress-bar').removeClass('progress-bar-striped').html('Failed to upload');
                     console.log('error status: ' + status);
@@ -76,14 +76,14 @@ angular.module("app.directives")
 
         $scope.setImageUrl = function(id) {
           $http.get('/api/imagebucket/getimageurl?bucket='+$scope.bucket+'&type=original&id='+id )
-          .success(function(resp, status, headers, config) {
+          .then(function(resp, status, headers, config) {
             if (typeof resp.result.url !== undefined) {
               angular.forEach($scope.arrayImages, function(value, key) {
                 if (value.id == id)
                   value.url = resp.result.url;
               });
             }
-          }).error(function(data, status, headers, config) {
+          },function(data, status, headers, config) {
             angular.forEach($scope.arrayImages, function(value, key) {
               if (value.id == id)
                 value.url = 'https://placehold.it/230x230';

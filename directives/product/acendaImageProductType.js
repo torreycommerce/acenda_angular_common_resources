@@ -18,7 +18,7 @@ angular.module("app.directives")
         $scope.newtype = false;
 
         $http.get('/api/catalog?attributes=images.type&format=attributes')
-        .success(function(resp, status, headers, config) {
+        .then(function(resp, status, headers, config) {
             if (typeof resp.result['images.type'] !== undefined) {
               var types = Object.keys(resp.result['images.type']);
               for (var i = 0, len = types.length; i < len; i++) {

@@ -11,8 +11,7 @@ angular.module("app.directives")
       paneldisplay: '=',
       emptymessage: '=',
       isorder: '=',
-      ordermethod: '=',
-      hasCustom: '=ngModel'
+      ordermethod: '='
     },
     link: function (scope, element, attr) {
       scope.init = function(){

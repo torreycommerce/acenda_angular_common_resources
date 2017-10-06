@@ -278,6 +278,7 @@ angular.module("app.directives")
                             $scope.modelname = $element.attr('modelname')
                         }
                         $http.get('/api/'+$scope.modelname+'?format=fields').then(function(resp, status, headers, config) {
+                            resp = resp.data;
                             if(typeof resp.result !== 'undefined ') {
                                 for(var i = 1 ; i<resp.result.length; i++) {
                                     $scope.fieldnames[i-1] = { name: resp.result[i], value: resp.result[i] };

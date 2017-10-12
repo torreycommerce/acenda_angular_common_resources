@@ -9150,7 +9150,7 @@ td,th {
   }
 
   .dropdown-menu.with-arrow.pull-right {
-    margin-top: 0;
+    margin-top: -4px;
   }
 
   .dropdown-menu.with-arrow.pull-right:before {

@@ -34,6 +34,7 @@ angular.module("app.directives")
             // if(typeof file === 'undefined') return;
           $http.post('/api/imagebucket/policy',  {action : 'upload', bucket : $scope.bucket} )
           .then(function(resp, status, headers, config) {
+            console.log(resp);
             if (typeof resp.result.id !== undefined && typeof resp.result.policy !== undefined) {
                 Upload.upload({
                     url: '/api/imagebucket',

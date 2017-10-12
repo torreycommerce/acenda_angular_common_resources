@@ -34,7 +34,7 @@ angular.module("app.directives")
             // if(typeof file === 'undefined') return;
           $http.post('/api/imagebucket/policy',  {action : 'upload', bucket : $scope.bucket} )
           .then(function(resp, status, headers, config) {
-            console.log(resp);
+            if(typeof resp.data !== 'undefined') resp = resp.data;
             if (typeof resp.result.id !== undefined && typeof resp.result.policy !== undefined) {
                 Upload.upload({
                     url: '/api/imagebucket',
@@ -78,6 +78,7 @@ angular.module("app.directives")
         $scope.setImageUrl = function(id) {
           $http.get('/api/imagebucket/getimageurl?bucket='+$scope.bucket+'&type=original&id='+id )
           .then(function(resp, status, headers, config) {
+            if(typeof resp.data !== 'undefined') resp = resp.data;            
             if (typeof resp.result.url !== undefined) {
               angular.forEach($scope.arrayImages, function(value, key) {
                 if (value.id == id)

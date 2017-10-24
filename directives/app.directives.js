@@ -770,7 +770,7 @@ angular.module("app.directives", [])
         scope: {
             ngm: '=ngModel',
             myid: '@myid',
-            actualid: '=actualid'
+            actualid: '=?actualid'
         },
 
         template: '<input type=text name="Countries" ng-model="ngm" class="form-control" id="{{actualid}}" placeholder="Country">',
@@ -812,7 +812,7 @@ angular.module("app.directives", [])
             ngm: '=ngModel',
             ngmCountry: '=ngmCountry', //use this to bind to country field
             myid: '@myid',
-            actualid: '=actualid'
+            actualid: '=?actualid'
         },
         template: '<input type=text name="States" ng-model="ngm" class="form-control" id="{{actualid}}" placeHolder="State/Province">',
         link: function(scope, element, attrs)

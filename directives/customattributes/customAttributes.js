@@ -24,13 +24,14 @@ angular.module("app.directives")
             var tmprules = response.data.result.rules;
             for (var i = 0; tmprules.length > i; i++)
             {
-              scope.customattr[tmprules[i]['0']] = scope.customattr[tmprules[i]['0']] || {};
-              scope.customattr[tmprules[i]['0']].name = tmprules[i]['0'];
-              scope.customattr[tmprules[i]['0']][tmprules[i]['1']] = true;
-              if (tmprules[i]['1'] == 'in')
-                scope.customattr[tmprules[i]['0']].options = tmprules[i]['range'];
-              if (tmprules[i]['1'] == 'length')
-                scope.customattr[tmprules[i]['0']].options = [tmprules[i]['min'], tmprules[i]['max']];
+              scope.customattr[tmprules[i]['name']] = scope.customattr[tmprules[i]['name']] || {};
+              scope.customattr[tmprules[i]['name']].name = tmprules[i]['name'];
+              scope.customattr[tmprules[i]['name']][tmprules[i]['validator']] = true;
+              scope.customattr[tmprules[i]['name']].required = tmprules[i]['required'];
+              if (tmprules[i]['validator'] == 'in')
+                scope.customattr[tmprules[i]['name']].options = tmprules[i]['range'];
+              if (tmprules[i]['validator'] == 'length')
+                scope.customattr[tmprules[i]['name']].options = [tmprules[i]['min'], tmprules[i]['max']];
               for (var attr in scope.customattr)
               {
                   scope.customattr[attr].type = 'text'; // safe
@@ -42,10 +43,10 @@ angular.module("app.directives")
                      scope.customattr[attr].type = 'url';
                   else if (scope.customattr[attr].boolean)
                     scope.customattr[attr].type = 'checkbox';
+                  else if (scope.customattr[attr].password)
+                    scope.customattr[attr].type = 'password';
                   else if (scope.customattr[attr].in)
                     scope.customattr[attr].type = 'select';
-                  else if (scope.customattr[attr].safe)
-                    scope.customattr[attr].type = 'text';
 
                   if (scope.customattr[attr].length)
                   {
@@ -55,7 +56,6 @@ angular.module("app.directives")
               }
             }
             scope.hasCustom = !jQuery.isEmptyObject(scope.customattr);
-            console.log(scope.hasCustom)
             scope.isEmpty = jQuery.isEmptyObject(scope.customattr);
           }, function(error)
           {

@@ -1,0 +1,9 @@
+{
+  "name": "angular-ui-ace-diff",
+  "version": "0.2.3",
+  "main": ["./ui-ace-diff.js"],
+  "dependencies": {
+    "angular": "~1.x",
+    "ace-builds": "^1"
+  }
+}

@@ -325,7 +325,7 @@ angular.module("app.directives")
                                     return exec;
                                 }
 
-                                if(field == 'undefined') field ='';
+                                if(field == 'undefined' || field == '?') field ='';
                                 value = t.formatQueryValue(action, value);
 
                                 if(field != '') {

@@ -135,7 +135,7 @@ angular.module('ui.ace-diff', [])
       restrict: 'EA',
       require: '?ngModel',
       scope: {'leftFile':'=','rightFile':'='},
-      template: '<div id="flex-container"><div><div id="uiacediff-left-editor" class="editor-left"></div></div><div id="uiacediff-gutter"></div><div><div id="uiacediff-right-editor" class="editor-right"></div></div></div>',
+      template: '<div id="flex-container"><div id="left-container"><div id="uiacediff-left-editor" class="editor-left"></div></div><div id="uiacediff-gutter"></div><div id="right-container"><div id="uiacediff-right-editor" class="editor-right"></div></div></div>',
       link: function (scope, elm, attrs,ngModel) {
       
          var diffs = [];
@@ -376,8 +376,14 @@ angular.module('ui.ace-diff', [])
             editors.right.ace.getSession().removeMarker(marker);
           });
         }
+        // Hide right side and gutter
+        function hideRight() {
+            elm[0].querySelector('#right-container').style.display = 'none';
 
-
+        }
+        function showRight() {
+            elm[0].querySelector('#right-container').style.display = 'block';
+        }
         function addConnector(acediff, leftStartLine, leftEndLine, rightStartLine, rightEndLine) {
           var leftScrollTop  = editors.left.ace.getSession().getScrollTop();
           var rightScrollTop = editors.right.ace.getSession().getScrollTop();
@@ -823,6 +829,11 @@ angular.module('ui.ace-diff', [])
               addConnector(this, info.leftStartLine, info.leftEndLine, info.rightStartLine, info.rightEndLine);
               addCopyArrows(this, info, diffIndex);
           });
+          if(!diffs.length) {
+              hideRight();
+          } else {
+              showRight();
+          }
         }
         var do_diffs = function() {
           var dmp = new diff_match_patch();

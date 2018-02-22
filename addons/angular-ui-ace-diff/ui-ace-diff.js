@@ -10,8 +10,6 @@ angular.module('ui.ace-diff', [])
     if (angular.isUndefined(window.ace)) {
       throw new Error('ui-ace-diff need ace to work... (o rly?)');
     }
-
-
     var Range = window.ace.require('ace/range').Range;
 
     // some constants from old acediff
@@ -28,17 +26,17 @@ angular.module('ui.ace-diff', [])
       DIFF_GRANULARITY_BROAD: 'broad'
     };
     var classes = {
-        gutterID: 'uiacediff-gutter',
+        gutterID: '#uiacediff-gutter',
         diff: 'uiacediff-diff',
         connector: 'uiacediff-connector',
         newCodeConnectorLink: 'uiacediff-new-code-connector-copy',
-        newCodeConnectorLinkContent: '&#8594;',
+        newCodeConnectorLinkContent: '&#128465;',
         deletedCodeConnectorLink: 'uiacediff-deleted-code-connector-copy',
         deletedCodeConnectorLinkContent: '&#8592;',
         copyRightContainer: 'uiacediff-copy-right',
         copyLeftContainer: 'uiacediff-copy-left'
     };
-    var setOptions = function(acee, session, opts,ngModel) {
+    var setOptions = function(scope,acee, session, opts,ngModel) {
 
       // sets the ace worker path, if running from concatenated
       // or minified source
@@ -125,11 +123,10 @@ angular.module('ui.ace-diff', [])
               acee.renderer.setOption(obj.name, obj.value);
           }
       }
-
-      // onLoad callbacks
-      angular.forEach(opts.callbacks, function (cb) {
-        if (angular.isFunction(cb)) {
-          cb(acee);
+      // onLoad callbakcks
+      angular.forEach(opts.callbacks, function (cb) {     
+        if (angular.isFunction(scope.$parent[cb])) { 
+          scope.$parent[cb](acee);
         }
       });
     };
@@ -140,6 +137,7 @@ angular.module('ui.ace-diff', [])
       scope: {'leftFile':'=','rightFile':'='},
       template: '<div id="flex-container"><div><div id="uiacediff-left-editor" class="editor-left"></div></div><div id="uiacediff-gutter"></div><div><div id="uiacediff-right-editor" class="editor-right"></div></div></div>',
       link: function (scope, elm, attrs,ngModel) {
+      
          var diffs = [];
         /**
          * Corresponds the uiAceConfig ACE configuration.
@@ -151,8 +149,7 @@ angular.module('ui.ace-diff', [])
          * uiAceConfig merged with user options via json in attribute or data binding
          * @type object
          */
-        var opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
-
+        var opts = angular.extend({}, options, scope.$eval(attrs.uiAceDiff));
         // instantiate the editors in an internal data structure that will store a little info about the diffs and
         // editor content
         var editors = {
@@ -171,6 +168,7 @@ angular.module('ui.ace-diff', [])
         var lineHeight = 16;
         var connectorYOffset;        
         var gutterSVG=null;
+        var copyRightContainer,copyLeftContainer;
         var gutterHeight;
         var gutterWidth;
         var diffGranularity = C.DIFF_GRANULARITY_BROAD;
@@ -195,11 +193,15 @@ angular.module('ui.ace-diff', [])
          */
         var onBlurListener;
 
-// **
         function addEventHandlers(acediff) {
           var leftLastScrollTime = new Date().getTime(),
               rightLastScrollTime = new Date().getTime(),
               now;
+          scope.$on("dmessage", function (e, msg) {
+            clearDiffs();
+            decorate();            
+            console.log(msg);
+          });
 
          editors.left.ace.getSession().on('changeScrollTop', function(scroll) {
             now = new Date().getTime();
@@ -219,6 +221,8 @@ angular.module('ui.ace-diff', [])
           //   on('#' + acediff.options.classes.gutterID, 'click', '.' + acediff.options.classes.newCodeConnectorLink, function(e) {
           //     copy(acediff, e, C.LTR);
           //   });
+
+
           // }
           // if (acediff.options.right.copyLinkEnabled) {
           //   on('#' + acediff.options.classes.gutterID, 'click', '.' + acediff.options.classes.deletedCodeConnectorLink, function(e) {
@@ -242,22 +246,57 @@ angular.module('ui.ace-diff', [])
           };
         }
 
-        function copy(acediff, e, dir) {
+        // since the right side is read-only, we're just going to trash what we have on the left rather than copy it over
+        function trash(acediff,e,dir) {
           var diffIndex = parseInt(e.target.getAttribute('data-diff-index'), 10);
-          var diff = acediff.diffs[diffIndex];
+          var diff = diffs[diffIndex];
           var sourceEditor, targetEditor;
 
           var startLine, endLine, targetStartLine, targetEndLine;
           if (dir === C.LTR) {
-            sourceEditor = acediff.editors.left;
-            targetEditor = acediff.editors.right;
+            sourceEditor = editors.left;
+            targetEditor = editors.right;
             startLine = diff.leftStartLine;
             endLine = diff.leftEndLine;
             targetStartLine = diff.rightStartLine;
             targetEndLine = diff.rightEndLine;
           } else {
-            sourceEditor = acediff.editors.right;
-            targetEditor = acediff.editors.left;
+            sourceEditor = editors.right;
+            targetEditor = editors.left;
+            startLine = diff.rightStartLine;
+            endLine = diff.rightEndLine;
+            targetStartLine = diff.leftStartLine;
+            targetEndLine = diff.leftEndLine;
+          }
+          var totalLines = sourceEditor.ace.getSession().getLength();
+          var contentToInsert = '';
+          for (var i=0; i<totalLines; i++) {
+            if(i>=startLine && i<endLine) continue;
+            contentToInsert += getLine(sourceEditor, i) + '\n';
+          }
+
+          // keep track of the scroll height
+          var h = sourceEditor.ace.getSession().getScrollTop();
+          sourceEditor.ace.getSession().setValue(contentToInsert);
+          sourceEditor.ace.getSession().setScrollTop(parseInt(h));  
+          do_diffs();
+        }
+        function copy(acediff, e, dir) {
+          var diffIndex = parseInt(e.target.getAttribute('data-diff-index'), 10);
+          var diff = diffs[diffIndex];
+          var sourceEditor, targetEditor;
+
+          var startLine, endLine, targetStartLine, targetEndLine;
+          if (dir === C.LTR) {
+            sourceEditor = editors.left;
+            targetEditor = editors.right;
+            startLine = diff.leftStartLine;
+            endLine = diff.leftEndLine;
+            targetStartLine = diff.rightStartLine;
+            targetEndLine = diff.rightEndLine;
+          } else {
+            sourceEditor = editors.right;
+            targetEditor = editors.left;
             startLine = diff.rightStartLine;
             endLine = diff.rightEndLine;
             targetStartLine = diff.leftStartLine;
@@ -289,8 +328,8 @@ angular.module('ui.ace-diff', [])
           var h = targetEditor.ace.getSession().getScrollTop();
           targetEditor.ace.getSession().setValue(startContent + contentToInsert + endContent);
           targetEditor.ace.getSession().setScrollTop(parseInt(h));
-
-          acediff.diff();
+          //scope.$broadcast('dmessage', 'force reset of diff tool')   
+          do_diffs();
         }
 
 
@@ -373,36 +412,43 @@ angular.module('ui.ace-diff', [])
 
 
         function addCopyArrows(acediff, info, diffIndex) {
-          // if (info.leftEndLine > info.leftStartLine ) {
-          //   var arrow = createArrow({
-          //     className: classes.newCodeConnectorLink,
-          //     topOffset: info.leftStartLine * acediff.lineHeight,
-          //     tooltip: 'Copy to right',
-          //     diffIndex: diffIndex,
-          //     arrowContent: classes.newCodeConnectorLinkContent
-          //   });
-          //   acediff.copyRightContainer.appendChild(arrow);
-          // }
+          if (info.leftEndLine > info.leftStartLine ) {
+            var arrow = createArrow({
+              className: classes.newCodeConnectorLink,
+              topOffset: info.leftStartLine *  lineHeight,
+              tooltip: 'Remove Section',
+              diffIndex: diffIndex,
+              arrowContent: classes.newCodeConnectorLinkContent
+            });
+            arrow.addEventListener('click',function(e) {
+                 trash(acediff, e, C.LTR);
+            });
+            copyRightContainer.appendChild(arrow);
+          }
 
-          // if (info.rightEndLine > info.rightStartLine ) {
-          //   var arrow = createArrow({
-          //     className: classes.deletedCodeConnectorLink,
-          //     topOffset: info.rightStartLine * acediff.lineHeight,
-          //     tooltip: 'Copy to left',
-          //     diffIndex: diffIndex,
-          //     arrowContent: classes.deletedCodeConnectorLinkContent
-          //   });
-          //   acediff.copyLeftContainer.appendChild(arrow);
-          // }
+          if (info.rightEndLine > info.rightStartLine ) {
+            var arrow = createArrow({
+              className: classes.deletedCodeConnectorLink,
+              topOffset: info.rightStartLine * lineHeight,
+              tooltip: 'Copy to left',
+              diffIndex: diffIndex,
+              arrowContent: classes.deletedCodeConnectorLinkContent
+            });
+            arrow.addEventListener('click',function(e) {
+                 copy(acediff, e, C.RTL);
+            });
+
+            copyLeftContainer.appendChild(arrow);
+          }
         }
 
 
         function positionCopyContainers(acediff) {
-          // var leftTopOffset = editors.left.ace.getSession().getScrollTop();
-          // var rightTopOffset = editors.right.ace.getSession().getScrollTop();
+          var leftTopOffset = editors.left.ace.getSession().getScrollTop();
+          var rightTopOffset = editors.right.ace.getSession().getScrollTop();
 
-          // copyRightContainer.style.cssText = 'top: ' + (-leftTopOffset) + 'px';
-          // copyLeftContainer.style.cssText = 'top: ' + (-rightTopOffset) + 'px';
+          copyRightContainer.style.cssText = 'top: ' + (-leftTopOffset) + 'px';
+          copyLeftContainer.style.cssText = 'top: ' + (-rightTopOffset) + 'px';
         }
 
 
@@ -645,8 +691,8 @@ angular.module('ui.ace-diff', [])
 
 
         function createGutter(acediff) {
-          gutterHeight = document.getElementById(classes.gutterID).clientHeight;
-          gutterWidth = document.getElementById(classes.gutterID).clientWidth;
+          gutterHeight = elm[0].querySelector(classes.gutterID).clientHeight;
+          gutterWidth = elm[0].querySelector(classes.gutterID).clientWidth;
 
           var leftHeight = getTotalHeight(acediff, C.EDITOR_LEFT);
           var rightHeight = getTotalHeight(acediff, C.EDITOR_RIGHT);
@@ -656,7 +702,7 @@ angular.module('ui.ace-diff', [])
           gutterSVG.setAttribute('width', gutterWidth);
           gutterSVG.setAttribute('height', height);
 
-          document.getElementById(classes.gutterID).appendChild(gutterSVG);
+          elm[0].querySelector(classes.gutterID).appendChild(gutterSVG);
         }
 
         // acediff.editors.left.ace.getSession().getLength() * acediff.lineHeight
@@ -667,13 +713,13 @@ angular.module('ui.ace-diff', [])
 
         // creates two contains for positioning the copy left + copy right arrows
         function createCopyContainers(acediff) {
-          // copyRightContainer = document.createElement('div');
-          // copyRightContainer.setAttribute('class',classes.copyRightContainer);
-          // copyLeftContainer = document.createElement('div');
-          // copyLeftContainer.setAttribute('class', aclasses.copyLeftContainer);
+          copyRightContainer = document.createElement('div');
+          copyRightContainer.setAttribute('class',classes.copyRightContainer);
+          copyLeftContainer = document.createElement('div');
+          copyLeftContainer.setAttribute('class', classes.copyLeftContainer);
 
-          // document.getElementById(classes.gutterID).appendChild(copyRightContainer);
-          // document.getElementById(classes.gutterID).appendChild(copyLeftContainer);
+           elm[0].querySelector(classes.gutterID).appendChild(copyRightContainer);
+           elm[0].querySelector(classes.gutterID).appendChild(copyLeftContainer);
         }
 
 
@@ -681,7 +727,7 @@ angular.module('ui.ace-diff', [])
           //gutter.innerHTML = '';
 
 
-          var gutterEl  = document.getElementById(classes.gutterID);
+          var gutterEl  = elm[0].querySelector(classes.gutterID);
           if(gutterSVG!==null)
              gutterEl.removeChild(gutterSVG);
 
@@ -690,8 +736,8 @@ angular.module('ui.ace-diff', [])
 
 
         function clearArrows(acediff) {
-        //  acediff.copyLeftContainer.innerHTML = '';
-        //  acediff.copyRightContainer.innerHTML = '';
+            copyLeftContainer.innerHTML = '';  
+            copyRightContainer.innerHTML = '';                                  
         }
 
 
@@ -818,16 +864,14 @@ angular.module('ui.ace-diff', [])
 
           // simplify our computed diffs; this groups together multiple diffs on subsequent lines
           diffs = simplifyDiffs(this, diffs);
-
-          console.log('diffs!',diffs);
-
           // if we're dealing with too many diffs, fail silently
           if (diffs.length > 5000) {
             return;
           }
-
           clearDiffs();
+          clearArrows();
           decorate();
+
         }
 
 
@@ -862,7 +906,9 @@ angular.module('ui.ace-diff', [])
             scope.$evalAsync(function () {
               if (angular.isFunction(callback)) {
                 callback(args);
-              } else {
+              } if(angular.isFunction(scope.$parent[callback])) {
+                    scope.$parent[callback](args);
+              }  else {
                 throw new Error('ui-ace use a function as callback.');
               }
             });
@@ -899,7 +945,7 @@ angular.module('ui.ace-diff', [])
                   ngModel.$setViewValue(newValue);
                   scope.leftFile =sessionleft.getValue();
                   scope.rightFile =sessionright.getValue();
-                  do_diffs();                  
+                  do_diffs();               
                 });
               }
 
@@ -921,8 +967,9 @@ angular.module('ui.ace-diff', [])
             };
           }
         };
-
         addEventHandlers(this);
+          createGutter();          
+          createCopyContainers();        
         attrs.$observe('readonly', function (value) {
           acee.setReadOnly(!!value || value === '');
         });
@@ -940,7 +987,6 @@ angular.module('ui.ace-diff', [])
           });
 
           ngModel.$render = function () {
-            console.log('rendering');
             sessionleft.setValue(scope.leftFile);
             sessionright.setValue(scope.rightFile); 
 
@@ -954,7 +1000,6 @@ angular.module('ui.ace-diff', [])
         var updateOptions = function (current, previous) {
           if (current === previous) return;
           opts = angular.extend({}, options, scope.$eval(attrs.uiAceDiff));
-
           opts.callbacks = [ opts.onLoad ];
           if (opts.onLoad !== options.onLoad) {
             // also call the global onLoad handler
@@ -981,8 +1026,8 @@ angular.module('ui.ace-diff', [])
           editors.left.ace.on('blur', onBlurListener);
           editors.right.ace.on('blur', onBlurListener);
 
-          setOptions(editors.left.ace, sessionleft, opts);          
-          setOptions(editors.right.ace, sessionright, opts);  
+          setOptions(scope, editors.left.ace, sessionleft, opts);          
+          setOptions(scope, editors.right.ace, sessionright, opts);  
           editors.right.ace.setReadOnly(true);
         };
 
@@ -993,10 +1038,11 @@ angular.module('ui.ace-diff', [])
         updateOptions(options);
 
         elm.on('$destroy', function () {
-          aceleft.session.$stopWorker();
-          aceleft.destroy();
-          aceright.session.$stopWorker();
-          aceright.destroy();
+          console.log('destroy');
+          sessionleft.$stopWorker();
+          editors.left.ace.destroy();
+          sessionleft.$stopWorker();
+          editors.right.ace.destroy();
         });
 
         scope.$watch(function() {

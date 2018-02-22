@@ -272,7 +272,8 @@ angular.module('ui.ace-diff', [])
           var contentToInsert = '';
           for (var i=0; i<totalLines; i++) {
             if(i>=startLine && i<endLine) continue;
-            contentToInsert += getLine(sourceEditor, i) + '\n';
+            contentToInsert += getLine(sourceEditor, i);
+            if(i!=totalLines-1) contentToInsert += '\n';
           }
 
           // keep track of the scroll height

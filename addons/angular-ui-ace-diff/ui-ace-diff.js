@@ -216,20 +216,6 @@ angular.module('ui.ace-diff', [])
               updateGap(acediff, 'right', scroll);
             }
           });
-
-          // if (options.left.copyLinkEnabled) {
-          //   on('#' + acediff.options.classes.gutterID, 'click', '.' + acediff.options.classes.newCodeConnectorLink, function(e) {
-          //     copy(acediff, e, C.LTR);
-          //   });
-
-
-          // }
-          // if (acediff.options.right.copyLinkEnabled) {
-          //   on('#' + acediff.options.classes.gutterID, 'click', '.' + acediff.options.classes.deletedCodeConnectorLink, function(e) {
-          //     copy(acediff, e, C.RTL);
-          //   });
-          // }
-
         }
         function debounce(func, wait, immediate) {
           var timeout;
@@ -422,7 +408,7 @@ angular.module('ui.ace-diff', [])
           if (info.leftEndLine > info.leftStartLine ) {
             var arrow = createArrow({
               className: classes.newCodeConnectorLink,
-              topOffset: info.leftStartLine *  lineHeight,
+              topOffset: (info.leftStartLine *  lineHeight) + 3,
               tooltip: 'Remove Section',
               diffIndex: diffIndex,
               arrowContent: classes.newCodeConnectorLinkContent

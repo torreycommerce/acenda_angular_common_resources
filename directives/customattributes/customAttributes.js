@@ -12,10 +12,17 @@ angular.module("app.directives")
       emptymessage: '=',
       isorder: '=',
       hasCustom: '=?ngModel',
-      ordermethod: '='
+      ordermethod: '=',
+      grouping: '='
     },
     link: function (scope, element, attr) {
+
+      scope.setActiveGroup = function(groupname) {
+            scope.activeGroup = groupname;
+      };
       scope.init = function(){
+        scope.activeGroup = 'general';
+        scope.groups = ['general'];
         scope.customattr = {};
                     console.log(scope.hasCustom)
         $http.get('/api/dataschema/' + attr.modelname).then(
@@ -34,6 +41,18 @@ angular.module("app.directives")
                 scope.customattr[tmprules[i]['name']].options = [tmprules[i]['min'], tmprules[i]['max']];
               for (var attr in scope.customattr)
               {
+                // find groups
+                scope.customattr[attr].group = 'general';     
+                if(scope.grouping) {             
+                    var parts = attr.split('_');
+                    if(parts.length>1) {
+                        if(scope.groups.indexOf(parts[0]) == -1) {
+                            scope.groups.push(parts[0]);
+                        }
+                        scope.customattr[attr].group = parts[0];                    
+                    }  
+                }
+                // do the custom attribute dance                
                   scope.customattr[attr].type = 'text'; // safe
                   if (scope.customattr[attr].numerical)
                     scope.customattr[attr].type = 'number';

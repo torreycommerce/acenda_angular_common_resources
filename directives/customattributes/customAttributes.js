@@ -1,5 +1,5 @@
 angular.module("app.directives")
-.directive('customAttribute', ["$http", function ($http) {
+.directive('customAttribute', ["$http","$timeout", function ($http,$timeout) {
   return {
     templateUrl: 'templates/custom-attribute.html',
     restrict: 'E',
@@ -29,6 +29,7 @@ angular.module("app.directives")
           function(response)
           {
             var tmprules = response.data.result.rules;
+              var cntgeneral = 0;            
             for (var i = 0; tmprules.length > i; i++)
             {
               scope.customattr[tmprules[i]['name']] = scope.customattr[tmprules[i]['name']] || {};
@@ -39,6 +40,8 @@ angular.module("app.directives")
                 scope.customattr[tmprules[i]['name']].options = tmprules[i]['range'];
               if (tmprules[i]['validator'] == 'length')
                 scope.customattr[tmprules[i]['name']].options = [tmprules[i]['min'], tmprules[i]['max']];
+
+
               for (var attr in scope.customattr)
               {
                 // find groups
@@ -52,6 +55,8 @@ angular.module("app.directives")
                         scope.customattr[attr].group = parts[0];                    
                     }  
                 }
+                if(scope.customattr[attr].group == 'general') cntgeneral++;
+
                 // do the custom attribute dance                
                   scope.customattr[attr].type = 'text'; // safe
                   if (scope.customattr[attr].numerical)
@@ -73,7 +78,17 @@ angular.module("app.directives")
                       scope.customattr[attr].maxlen = scope.customattr[attr].options[1];
                   }
               }
+
             }
+            if(!cntgeneral) {
+                scope.groups.shift();
+                for(var g in scope.groups) {
+                    $timeout(function() {
+                       scope.setActiveGroup(scope.groups[g]);
+                    });
+                    break;
+                }                   
+            }            
             scope.hasCustom = !jQuery.isEmptyObject(scope.customattr);
             scope.isEmpty = jQuery.isEmptyObject(scope.customattr);
           }, function(error)

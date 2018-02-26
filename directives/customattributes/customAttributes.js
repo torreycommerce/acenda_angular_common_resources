@@ -18,10 +18,11 @@ angular.module("app.directives")
     link: function (scope, element, attr) {
 
       scope.setActiveGroup = function(groupname) {
-            scope.activeGroup = groupname;
+            Object.keys(scope.activeGroup).forEach(v => scope.activeGroup[v] = false)            
+            scope.activeGroup[groupname]=true;
       };
       scope.init = function(){
-        scope.activeGroup = 'general';
+        scope.activeGroup = {'general':true};
         scope.groups = ['general'];
         scope.customattr = {};
                     console.log(scope.hasCustom)
@@ -40,8 +41,6 @@ angular.module("app.directives")
                 scope.customattr[tmprules[i]['name']].options = tmprules[i]['range'];
               if (tmprules[i]['validator'] == 'length')
                 scope.customattr[tmprules[i]['name']].options = [tmprules[i]['min'], tmprules[i]['max']];
-
-
               for (var attr in scope.customattr)
               {
                 // find groups
@@ -85,7 +84,7 @@ angular.module("app.directives")
                 for(var g in scope.groups) {
                     $timeout(function() {
                        scope.setActiveGroup(scope.groups[g]);
-                    });
+                    },200);
                     break;
                 }                   
             }            

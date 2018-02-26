@@ -267,7 +267,7 @@ angular.module('ui.ace-diff', [])
           sourceEditor.ace.getSession().setValue(contentToInsert);
           sourceEditor.ace.getSession().setScrollTop(parseInt(h));  
           do_diffs();
-        }
+        }  
         function copy(acediff, e, dir) {
           var diffIndex = parseInt(e.target.getAttribute('data-diff-index'), 10);
           var diff = diffs[diffIndex];
@@ -567,7 +567,10 @@ angular.module('ui.ace-diff', [])
 
           return lineInfo;
         }
-
+        function normalizeContent(value = '') {
+          const normalized = value.replace(/\r\n/g, '\n').replace(/\r/g,'\n');
+          return normalized;
+        }
 
         // helper to return the startline, endline, startChar and endChar for a diff in a particular editor. Pretty
         // fussy function
@@ -965,10 +968,13 @@ angular.module('ui.ace-diff', [])
             };
           }
         };
-        addEventHandlers(this);
+
+          sessionleft.setUseWorker(false);
+          sessionright.setUseWorker(false);                    
+          addEventHandlers(this);
           createGutter();          
           createCopyContainers();        
-        attrs.$observe('readonly', function (value) {
+          attrs.$observe('readonly', function (value) {
           acee.setReadOnly(!!value || value === '');
         });
 
@@ -985,8 +991,8 @@ angular.module('ui.ace-diff', [])
           });
 
           ngModel.$render = function () {
-            sessionleft.setValue(scope.leftFile);
-            sessionright.setValue(scope.rightFile); 
+            sessionleft.setValue(normalizeContent(scope.leftFile));
+            sessionright.setValue(normalizeContent(scope.rightFile)); 
 
             do_diffs();
             showDiff(C.EDITOR_LEFT, 0, 2, classes.diff);

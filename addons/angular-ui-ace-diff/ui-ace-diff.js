@@ -5,7 +5,7 @@
  */
 angular.module('ui.ace-diff', [])
   .constant('uiAceConfig', {})
-  .directive('uiAceDiff', ['uiAceConfig', function (uiAceConfig) {
+  .directive('uiAceDiff', ['uiAceConfig','$timeout', function (uiAceConfig,$timeout) {
 
     if (angular.isUndefined(window.ace)) {
       throw new Error('ui-ace-diff need ace to work... (o rly?)');
@@ -134,7 +134,7 @@ angular.module('ui.ace-diff', [])
     return {
       restrict: 'EA',
       require: '?ngModel',
-      scope: {'leftFile':'=','rightFile':'='},
+      scope: {'leftFile':'=','rightFile':'=','showDiffs':'=','hasDiffs':'='},
       template: '<div id="flex-container"><div id="left-container"><div id="uiacediff-left-editor" class="editor-left"></div></div><div id="uiacediff-gutter"></div><div id="right-container"><div id="uiacediff-right-editor" class="editor-right"></div></div></div>',
       link: function (scope, elm, attrs,ngModel) {
       
@@ -366,11 +366,18 @@ angular.module('ui.ace-diff', [])
         // Hide right side and gutter
         function hideRight() {
             elm[0].querySelector('#right-container').style.display = 'none';
+            elm[0].querySelector('#uiacediff-gutter').style.display = 'none';            
+        }
+        function repaint() {
 
         }
+
         function showRight() {
             elm[0].querySelector('#right-container').style.display = 'block';
+            elm[0].querySelector('#uiacediff-gutter').style.display = 'block';
         }
+
+
         function addConnector(acediff, leftStartLine, leftEndLine, rightStartLine, rightEndLine) {
           var leftScrollTop  = editors.left.ace.getSession().getScrollTop();
           var rightScrollTop = editors.right.ace.getSession().getScrollTop();
@@ -720,9 +727,6 @@ angular.module('ui.ace-diff', [])
 
 
         function clearGutter(acediff) {
-          //gutter.innerHTML = '';
-
-
           var gutterEl  = elm[0].querySelector(classes.gutterID);
           if(gutterSVG!==null)
              gutterEl.removeChild(gutterSVG);
@@ -809,20 +813,33 @@ angular.module('ui.ace-diff', [])
           editor.markers.push(editor.ace.session.addMarker(new Range(startLine, 0, endLine, 1), classNames, 'fullLine'));
         }
         var decorate = function() {
-          clearGutter();
-          clearArrows();
 
-          diffs.forEach(function(info, diffIndex) {
-              showDiff(C.EDITOR_LEFT, info.leftStartLine, info.leftEndLine, classes.diff);
-              showDiff(C.EDITOR_RIGHT, info.rightStartLine, info.rightEndLine, classes.diff);
+          if(diffs.length) scope.hasDiffs = true; 
+          else {
+              scope.hasDiffs = false; 
+          }
+         
+           if(scope.showDiffs) { 
+            if(!diffs.length) {
+                hideRight();
+                scope.hasDiffs = false;
+            } else{
+                scope.hasDiffs = true;              
+                showRight();
+            }
+            
+            clearGutter();
+            clearArrows();         
+            diffs.forEach(function(info, diffIndex) {
+                showDiff(C.EDITOR_LEFT, info.leftStartLine, info.leftEndLine, classes.diff);
+                showDiff(C.EDITOR_RIGHT, info.rightStartLine, info.rightEndLine, classes.diff);
 
-              addConnector(this, info.leftStartLine, info.leftEndLine, info.rightStartLine, info.rightEndLine);
-              addCopyArrows(this, info, diffIndex);
-          });
-          if(!diffs.length) {
-              hideRight();
-          } else {
-              showRight();
+                addConnector(this, info.leftStartLine, info.leftEndLine, info.rightStartLine, info.rightEndLine);
+                addCopyArrows(this, info, diffIndex);
+            });     
+
+          } else {         
+                hideRight(); 
           }
         }
         var do_diffs = function() {
@@ -1036,7 +1053,6 @@ angular.module('ui.ace-diff', [])
         };
 
         scope.$watch(attrs.uiAceDiff, updateOptions, /* deep watch */ true);
-
         // set the options here, even if we try to watch later, if this
         // line is missing things go wrong (and the tests will also fail)
         updateOptions(options);
@@ -1048,14 +1064,21 @@ angular.module('ui.ace-diff', [])
           sessionleft.$stopWorker();
           editors.right.ace.destroy();
         });
+        scope.$watch('showDiffs',function(o,n) {
+            $timeout(function(){
+              updateGap();  
+            });
+
+        },true);
 
         scope.$watch(function() {
           return [elm[0].offsetWidth, elm[0].offsetHeight];
-        }, function() {
+        }, function() {          
           editors.left.ace.resize();
           editors.left.ace.renderer.updateFull();
           editors.right.ace.resize();
           editors.right.ace.renderer.updateFull();
+
         }, true);
       }
     };

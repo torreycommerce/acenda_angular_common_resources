@@ -827,7 +827,7 @@ angular.module('ui.ace-diff', [])
                 scope.hasDiffs = true;              
                 showRight();
             }
-            
+
             clearGutter();
             clearArrows();         
             diffs.forEach(function(info, diffIndex) {
@@ -1050,6 +1050,9 @@ angular.module('ui.ace-diff', [])
           setOptions(scope, editors.left.ace, sessionleft, opts);          
           setOptions(scope, editors.right.ace, sessionright, opts);  
           editors.right.ace.setReadOnly(true);
+          editors.left.ace.setShowPrintMargin(false);
+          editors.right.ace.setShowPrintMargin(false);
+
         };
 
         scope.$watch(attrs.uiAceDiff, updateOptions, /* deep watch */ true);

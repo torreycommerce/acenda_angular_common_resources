@@ -6132,9 +6132,19 @@ td,th {
   }
 
   .modal-header {
-    padding: 15px;
+    background: #e9e9e9;
+    padding: 10px 15px;
     border-bottom: 1px solid #e5e5e5;
     min-height: 16.42857px;
+  }
+  .modal-header h2 ,.modal-header h3{
+      margin-top:1px;
+      margin-bottom: 1px;
+      margin: 0px;
+      font-weight:bold;
+      color: #797979;
+      text-transform: uppercase;  
+      font-size: 18px;    
   }
 
   .modal-header .close {

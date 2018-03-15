@@ -13597,3 +13597,9 @@ h8 {
 }
 .grid {  height: 98vh;}
 
+.cron-select-wrap .cron-select {
+   width: unset;
+
+
+}
+

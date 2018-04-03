@@ -20,7 +20,6 @@ angular.module("app.directives")
                 }
 
                 $scope.$watch('modelname',function () {
-                    console.log('firing!@');
                     $scope.obj.gotfieldnames=false;
                     $scope.updateQueryTree();
                 })
@@ -272,20 +271,17 @@ angular.module("app.directives")
 
                 $scope.updateQueryTree = function() {
                     if($scope.obj.gotfieldnames === false ) {
-                        console.log('getting fieldnames for model ' + $scope.modelname);
                         if(typeof $scope.modelname == 'undefined') {
                             $scope.modelname = $element.attr('modelname');
                         }
                         $http.get('/api/'+$scope.modelname+'?format=fields').then(function(resp, status, headers, config) {
                             resp = resp.data;
-                            console.log('got fieldnames');
                             if(typeof resp.result !== 'undefined ') {
                                 for(var i = 1 ; i<resp.result.length; i++) {
                                     $scope.obj.fieldnames[i-1] = { name: resp.result[i], value: resp.result[i] };
                                 }
                                 $scope.obj.gotfieldnames=true;
                                 $timeout(function() {
-                                    console.log('updating tree');
                                     $scope.updateQueryTree();
                                     $scope.updateQuery();
                                 },200);

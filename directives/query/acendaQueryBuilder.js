@@ -9,10 +9,7 @@ angular.module("app.directives")
         templateUrl: 'templates/querybuilder.html',
         controller: ["$scope", "$element", "$window", "$rootScope", "$location","$http","$timeout","logger",
             function($scope, $element, $window, $rootScope, $location,$http, $timeout,logger) {
-                $scope.fieldnames=[];
-                $scope.selectedfield = 0;
-                $scope.gotfieldnames=false;
-
+                $scope.obj={fieldnames: [],selectedfield: '',gotfieldnames: false};
                 $scope.querymodel;
 
                 $scope.updateQueryModel = function(){
@@ -23,13 +20,14 @@ angular.module("app.directives")
                 }
 
                 $scope.$watch('modelname',function () {
-                    $scope.gotfieldnames=false;
+                    console.log('firing!@');
+                    $scope.obj.gotfieldnames=false;
                     $scope.updateQueryTree();
                 })
 
 
                 $scope.testQuery = function() {
-                    if($scope.gotfieldnames === false) {
+                    if($scope.obj.gotfieldnames === false) {
                         $timeout($scope.testquery(),200);
                         return;
                     }
@@ -238,7 +236,7 @@ angular.module("app.directives")
                                     value = values;
                                 }
 
-                                var li = $element.find(".query_block li").last().clone();
+                                var li = $element.find(".query_block li").last(); //.clone();
                                 li.find('.field-name').first().val(field);
                                 li.find('.field-action').first().val(action);
                                 if(typeof value == 'string' || typeof value == 'number') { li.find('.field-value').first().val(value); }
@@ -273,18 +271,21 @@ angular.module("app.directives")
                 }
 
                 $scope.updateQueryTree = function() {
-                    if($scope.gotfieldnames === false ) {
+                    if($scope.obj.gotfieldnames === false ) {
+                        console.log('getting fieldnames for model ' + $scope.modelname);
                         if(typeof $scope.modelname == 'undefined') {
-                            $scope.modelname = $element.attr('modelname')
+                            $scope.modelname = $element.attr('modelname');
                         }
                         $http.get('/api/'+$scope.modelname+'?format=fields').then(function(resp, status, headers, config) {
                             resp = resp.data;
+                            console.log('got fieldnames');
                             if(typeof resp.result !== 'undefined ') {
                                 for(var i = 1 ; i<resp.result.length; i++) {
-                                    $scope.fieldnames[i-1] = { name: resp.result[i], value: resp.result[i] };
+                                    $scope.obj.fieldnames[i-1] = { name: resp.result[i], value: resp.result[i] };
                                 }
-                                $scope.gotfieldnames=true;
+                                $scope.obj.gotfieldnames=true;
                                 $timeout(function() {
+                                    console.log('updating tree');
                                     $scope.updateQueryTree();
                                     $scope.updateQuery();
                                 },200);
@@ -391,7 +392,7 @@ angular.module("app.directives")
                             return exec ? command : angular.fromJson($scope.querymodel);
                 }
                 $scope.updateQuery = function() {
-                    if($scope.gotfieldnames === false) return;
+                    if($scope.obj.gotfieldnames === false) return;
 
                     if($scope.querymodel == "") {
                         $scope.querymodel = "{}";

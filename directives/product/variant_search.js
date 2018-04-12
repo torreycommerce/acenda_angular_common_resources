@@ -24,20 +24,14 @@ angular.module("app.directives")
                 $scope.globalTimeout = null;
 
                 $scope.addVariant = function(event, product, variant){
-                    if(variant.inventory_quantity <= variant.inventory_minimum_quantity && variant.inventory_policy!='continue'){
+                    $scope.model.push(variant);
+                    /*if (variant.inventory_quantity <= variant.inventory_minimum_quantity && variant.inventory_policy!='continue') {
                         event.preventDefault();
                         event.stopPropagation();
                         $scope.$root.$broadcast('errorNotif', "This item is out of stock.");
-                    }else{
+                    } else {
                         $scope.model.push(variant);
-                        /*$scope.model.push({
-                        'product': product,
-                        'variant': variant,
-                        'quantity': 1,
-                        'product_id': variant.product_id,
-                        'status': 'open'
-                    });*/
-                    }
+                    }*/
                 }
 
                 $scope.search = function() {

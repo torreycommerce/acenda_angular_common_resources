@@ -261,7 +261,7 @@ angular.module("app.directives")
                                 li.find("input,select").change(function() {
                                     t.updateQuery();
                                 });
-                                currentUl.append(li);
+                                currentUl.append(li.clone());
                                 currentUl = li.find('ul').first();
                             }
                         }

@@ -13648,3 +13648,14 @@ h8 {
 .changelog-table a{
     font-size: smaller;
 }
+
+a.changelog-button {
+    color: #bbb;
+}
+a.changelog-button:hover {
+    color: #aaa;
+    text-decoration: none;    
+
+}
+
+

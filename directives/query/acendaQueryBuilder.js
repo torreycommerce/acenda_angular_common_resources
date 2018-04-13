@@ -235,7 +235,7 @@ angular.module("app.directives")
                                     value = values;
                                 }
 
-                                var li = $element.find(".query_block li").last(); //.clone();
+                                var li = $element.find(".query_block li").last().clone();
                                 li.find('.field-name').first().val(field);
                                 li.find('.field-action').first().val(action);
                                 if(typeof value == 'string' || typeof value == 'number') { li.find('.field-value').first().val(value); }
@@ -261,7 +261,7 @@ angular.module("app.directives")
                                 li.find("input,select").change(function() {
                                     t.updateQuery();
                                 });
-                                currentUl.append(li.clone());
+                                currentUl.append(li);
                                 currentUl = li.find('ul').first();
                             }
                         }

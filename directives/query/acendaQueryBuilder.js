@@ -7,8 +7,8 @@ angular.module("app.directives")
           querymodel:     '=ngModel'
         },
         templateUrl: 'templates/querybuilder.html',
-        controller: ["$scope", "$element", "$window", "$rootScope", "$location","$http","$timeout","logger",
-            function($scope, $element, $window, $rootScope, $location,$http, $timeout,logger) {
+        controller: ["$scope", "$element", "$window", "$rootScope", "$compile", "$location","$http","$timeout","logger",
+            function($scope, $element, $window, $rootScope, $compile, $location,$http, $timeout,logger) {
                 $scope.obj={fieldnames: [],selectedfield: '',gotfieldnames: false};
                 $scope.querymodel;
 
@@ -267,6 +267,7 @@ angular.module("app.directives")
                         }
                         childCount++;
                     }
+                    $compile($element.find(".query_block"),$scope);
                 }
 
                 $scope.updateQueryTree = function() {

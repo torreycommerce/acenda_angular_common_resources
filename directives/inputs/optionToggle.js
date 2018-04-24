@@ -7,7 +7,7 @@ angular.module("app.directives")
       		values: '=',
             ngModel: '=ngModel'
     	},
-    	template: '<span ng-repeat="value in optionValues track by $index" ng-class="{'+"'option-toogle-down'"+': ngModel == value.value}" class="label option-toogle" ng-click="click($index)">{{value.value}}</span>',
+    	template: '<span ng-repeat="value in optionValues track by $index" ng-class="{'+"'option-toogle-down'"+': ngModel == value.value}" style="display: inline-block" class="label option-toogle" ng-click="click($index)">{{value.value}}</span>',
     	link : function($scope, element, attrs, ctrl){
             $scope.option = "";
     		$scope.optionValues = [];

@@ -93,6 +93,7 @@ angular.module("app.directives")
             
             $timeout(function() {
                 var taxjar_codes = {
+                    0:        'None',
                     20010:    'Clothing',
                     30070:    'Software as a Service',
                     31000:    'Digital Goods',

@@ -13551,9 +13551,7 @@ a.info-tiles, a.shortcut-tiles {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
-.table-dynamic .ui-checkbox input[type="checkbox"]:checked+span:after {
-  left: 10px;
-}
+
 #content > div > div > section > dynamic-table > div.table-responsive > table > thead > tr > th:nth-child(1) > div > label > span:after {
   left: 8px;
 

@@ -90,6 +90,38 @@ angular.module("app.directives")
             }            
             scope.hasCustom = !jQuery.isEmptyObject(scope.customattr);
             scope.isEmpty = jQuery.isEmptyObject(scope.customattr);
+            
+            $timeout(function() {
+                var taxjar_codes = {
+                    0:        'None',
+                    20010:    'Clothing',
+                    30070:    'Software as a Service',
+                    31000:    'Digital Goods',
+                    40010:    'Candy',
+                    40020:    'Supplements',
+                    40030:    'Food & Groceries',
+                    40050:    'Soft Drinks',
+                    40060:    'Bottled Water',
+                    41000:    'Prepared Foods',
+                    51010:    'Non-Prescription',
+                    51020:    'Prescription',
+                    81100:    'Books',
+                    81110:    'Textbooks',
+                    81120:    'Religious Books',
+                    81300:    'Magazines & Subscriptions',
+                    81310:    'Magazine',
+                    99999:    'Other Exempt',
+                };
+                $('label:contains("Taxjar")').parent().find('option').each( function(){
+                    var val = $(this).val().replace("number:","");
+                    if(val in taxjar_codes)
+                    {
+                        $(this).attr('label',taxjar_codes[val]);
+                    }
+                });
+            });
+            
+            
           }, function(error)
           {
             console.log(scope.customattr);

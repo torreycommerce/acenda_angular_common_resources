@@ -85,8 +85,8 @@ angular.module("app.directives")
                                     break;
                                 }
                             }
-                            scope.hasCustom = !jQuery.isEmptyObject(scope.customattr);
-                            scope.isEmpty = jQuery.isEmptyObject(scope.customattr);
+                            scope.hasCustom = !jQuery.isEmptyObject(customattr);
+                            scope.isEmpty = jQuery.isEmptyObject(customattr);
                             scope.customattr = customattr;
                             $timeout(function () {
                                 var taxjar_codes = {

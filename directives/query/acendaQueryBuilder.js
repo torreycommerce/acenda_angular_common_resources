@@ -275,7 +275,7 @@ angular.module("app.directives")
                         if(typeof $scope.modelname == 'undefined') {
                             $scope.modelname = $element.attr('modelname');
                         }
-                        $http.get('/api/'+$scope.modelname+'?format=fields').then(function(resp, status, headers, config) {
+                        $http.get('/api/'+$scope.modelname.toLowerCase()+'?format=fields').then(function(resp, status, headers, config) {
                             resp = resp.data;
                             if(typeof resp.result !== 'undefined ') {
                                 for(var i = 1 ; i<resp.result.length; i++) {

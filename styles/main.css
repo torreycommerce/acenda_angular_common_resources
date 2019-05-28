@@ -8624,6 +8624,7 @@ td,th {
     height: 180px;
     font-size: 21px;
     text-align: center;
+	text-transform:capitalize;
   }
 
   .btn-metro i {
@@ -8633,6 +8634,7 @@ td,th {
 
   .btn-metro span {
     position: absolute;
+	right: 15px;
     left: 15px;
     bottom: 15px;
   }

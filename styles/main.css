@@ -6143,8 +6143,8 @@ td,th {
       margin: 0px;
       font-weight:bold;
       color: #797979;
-      text-transform: uppercase;  
-      font-size: 18px;    
+      text-transform: uppercase;
+      font-size: 18px;
   }
 
   .modal-header .close {
@@ -8624,6 +8624,7 @@ td,th {
     height: 180px;
     font-size: 21px;
     text-align: center;
+	text-transform:capitalize;
   }
 
   .btn-metro i {
@@ -8633,6 +8634,7 @@ td,th {
 
   .btn-metro span {
     position: absolute;
+	right: 15px;
     left: 15px;
     bottom: 15px;
   }
@@ -9103,7 +9105,7 @@ td,th {
     -ms-transform-origin: top right;
     -o-transform-origin: top right;
     transform-origin: top right;
-}  
+}
 .dropdown-menu-scaleIn {
     display: block;
     opacity: 0;
@@ -11231,8 +11233,6 @@ td,th {
     cursor: text;
     display: block;
     width: 100%;
-    min-height: 34px;
-    padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857;
     color: #555;
@@ -12143,7 +12143,7 @@ td,th {
   }
   #nav {
       display: flex;
-  flex-direction: column;      
+  flex-direction: column;
   }
   #nav>li {
     position: relative;
@@ -12278,7 +12278,7 @@ td,th {
   }
 
   .on-canvas .top-header .top-nav {
-    
+
   }
 
   @media (min-width: 768px) {
@@ -12300,17 +12300,17 @@ td,th {
     }
 
 
-    
+
     .navbar {
        width: 100%;
     }
-    .navbar-secondary { 
-       position: fixed; 
+    .navbar-secondary {
+       position: fixed;
        z-index: 4;
-       background-color: #fafafa;      
+       background-color: #fafafa;
     }
     .navbar-secondary.calc-width {
-       width: calc(100% - 220px);      
+       width: calc(100% - 220px);
     }
     .nav-min .navbar-secondary.calc-width {
       left: 60px;
@@ -12415,7 +12415,7 @@ td,th {
   }
   .top-header .logo #triangle {
     display: none;
-  } 
+  }
   .top-header .logo {
     position: absolute;
     width: 100%;
@@ -12440,7 +12440,7 @@ td,th {
       width: 60px;
       background-color: #242633;
       color: #767676;
-    }  
+    }
   .nav-min .top-header .logo #triangle {
       display: inline-block;
   }
@@ -13244,7 +13244,7 @@ a.info-tiles, a.shortcut-tiles {
     background: #fff none repeat scroll 0 0;
 }
 .info-tiles.tiles-grey .tiles-footer {
-    color: #909090;  
+    color: #909090;
     background: #eee none repeat scroll 0 0;
 }
 .info-tiles.tiles-grey:hover {
@@ -13519,7 +13519,7 @@ a.info-tiles, a.shortcut-tiles {
   top: 0px;
   background: #66B5D7;
   height: 3px;
-  opacity: 0.9;  
+  opacity: 0.9;
   z-index: 1;
 }
  .table-dynamic .table-bordered>thead>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>tfoot>tr>td {
@@ -13532,13 +13532,13 @@ a.info-tiles, a.shortcut-tiles {
      border-width: 1px 0px 0px 0px ;
 }
 .table-dynamic .table-bordered thead th>.th {
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 .table-dynamic .table-bordered thead th {
   border: none;
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 #content > div > div > section > dynamic-table > div.table-responsive > table > thead > tr > th:last-child
 {
@@ -13580,7 +13580,7 @@ a.info-tiles, a.shortcut-tiles {
 
 }
 .panel {
-    border-radius: 3px;  
+    border-radius: 3px;
 }
 
 h8 {
@@ -13627,7 +13627,7 @@ h8 {
 {
     width:120px;
     max-width:150px;
-}                
+}
 .changelog-table th:nth-child(2),
 .changelog-table td:nth-child(2)
 {
@@ -13652,8 +13652,6 @@ a.changelog-button {
 }
 a.changelog-button:hover {
     color: #aaa;
-    text-decoration: none;    
+    text-decoration: none;
 
 }
-
-

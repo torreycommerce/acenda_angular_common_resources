@@ -379,7 +379,8 @@ angular.module("app.directives", [])
     restrict: "A",
     link: function(scope, ele, attrs) {
       return ele.slimScroll({
-        height: attrs.scrollHeight || "100%"
+        height: attrs.scrollHeight || "100%",
+        color: attrs.scrollColor || "black"
       })
     }
   }

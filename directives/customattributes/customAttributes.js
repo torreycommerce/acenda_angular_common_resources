@@ -25,6 +25,8 @@ angular.module("app.directives")
                     scope.activeGroup = {'general': true};
                     scope.groups = ['general'];
                     scope.customattr = {};
+
+
                     console.log(scope.hasCustom)
                     $http.get('/api/dataschema/' + attr.modelname).then(
                         function (response) {
@@ -89,6 +91,13 @@ angular.module("app.directives")
                             scope.isEmpty = jQuery.isEmptyObject(customattr);
                             scope.customattr = customattr;
                             $timeout(function () {
+
+                                angular.forEach(scope.objectvalue,function(v,n) {
+                                    if(typeof v == 'number'){  
+                                        console.log('converting ' + n);
+                                        scope.objectvalue[n]=v.toString();
+                                    }
+                                });                                
                                 var taxjar_codes = {
                                     0: 'None',
                                     20010: 'Clothing',

@@ -1105,14 +1105,6 @@ legend.item-border {
 }
 
 @media handheld, screen and (max-width: 430px) {
-    .header-dropdown-panel { width: 250px; }
-}
-
-@media handheld, screen and (max-width: 430px) {
-    .header-dropdown-btn { display: block; width: 100%; }
-}
-
-@media handheld, screen and (max-width: 430px) {
     .hovercard {
         display:none;
     }

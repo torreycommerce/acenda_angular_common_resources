@@ -8424,42 +8424,6 @@ td,th {
     border-color: #b8301f;
   }
 
-  .btn-instagram {
-    color: #fff;
-    background-color: #82685A;
-    border-color: #82685A;
-  }
-
-  .btn-instagram:hover {
-    color: #fff;
-    background-color: #6a5549;
-    border-color: #5e4b41;
-  }
-
-  .btn-vimeo {
-    color: #fff;
-    background-color: #63879C;
-    border-color: #63879C;
-  }
-
-  .btn-vimeo:hover {
-    color: #fff;
-    background-color: #537183;
-    border-color: #4b6777;
-  }
-
-  .btn-flickr {
-    color: #fff;
-    background-color: #0061DB;
-    border-color: #0061DB;
-  }
-
-  .btn-flickr:hover {
-    color: #fff;
-    background-color: #004fb2;
-    border-color: #00469e;
-  }
-
   .btn-github {
     color: #fff;
     background-color: #3B3B3B;
@@ -8484,78 +8448,6 @@ td,th {
     border-color: #ab2421;
   }
 
-  .btn-tumblr {
-    color: #fff;
-    background-color: #586980;
-    border-color: #586980;
-  }
-
-  .btn-tumblr:hover {
-    color: #fff;
-    background-color: #475568;
-    border-color: #3f4b5c;
-  }
-
-  .btn-linkedin {
-    color: #fff;
-    background-color: #018FAF;
-    border-color: #018FAF;
-  }
-
-  .btn-linkedin:hover {
-    color: #fff;
-    background-color: #016e86;
-    border-color: #015d72;
-  }
-
-  .btn-dribbble {
-    color: #fff;
-    background-color: #EA73A0;
-    border-color: #EA73A0;
-  }
-
-  .btn-dribbble:hover {
-    color: #fff;
-    background-color: #e55088;
-    border-color: #e23e7c;
-  }
-
-  .btn-stumbleupon {
-    color: #fff;
-    background-color: #EA4B24;
-    border-color: #EA4B24;
-  }
-
-  .btn-stumbleupon:hover {
-    color: #fff;
-    background-color: #d13914;
-    border-color: #bf3412;
-  }
-
-  .btn-lastfm {
-    color: #fff;
-    background-color: #B80638;
-    border-color: #B80638;
-  }
-
-  .btn-lastfm:hover {
-    color: #fff;
-    background-color: #90052c;
-    border-color: #7d0426;
-  }
-
-  .btn-evernote {
-    color: #fff;
-    background-color: #3BAB27;
-    border-color: #3BAB27;
-  }
-
-  .btn-evernote:hover {
-    color: #fff;
-    background-color: #308a1f;
-    border-color: #2a791c;
-  }
-
   .btn-skype {
     color: #fff;
     background-color: #00B0F6;
@@ -8566,30 +8458,6 @@ td,th {
     color: #fff;
     background-color: #0093cd;
     border-color: #0084b9;
-  }
-
-  .btn-soundcloud {
-    color: #fff;
-    background-color: #06f;
-    border-color: #06f;
-  }
-
-  .btn-soundcloud:hover {
-    color: #fff;
-    background-color: #0056d6;
-    border-color: #004ec2;
-  }
-
-  .btn-behance {
-    color: #fff;
-    background-color: #B80638;
-    border-color: #B80638;
-  }
-
-  .btn-behance:hover {
-    color: #fff;
-    background-color: #90052c;
-    border-color: #7d0426;
   }
 
   .btn-rss {
@@ -12537,7 +12405,7 @@ td,th {
   }
 
   .top-header .top-nav .nav-left,.top-header .top-nav .nav-right {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 22px;
   }
 
@@ -13659,32 +13527,48 @@ a.changelog-button:hover {
 
 
 .form-row{
-    margin-right:-5px;
-    margin-left:-5px
+	margin-right:-5px;
+	margin-left:-5px
 }
 .form-row>.col,.form-row>[class*=col-]{
-    padding-right:5px;
-    padding-left:5px
+	padding-right:5px;
+	padding-left:5px
 }
 
 .mini-row{
-    margin-right:-2px;
-    margin-left:-2px
+	margin-right:-2px;
+	margin-left:-2px
 }
 .mini-row>.col,.mini-row>[class*=col-]{
-    padding-right:2px;
-    padding-left:2px
+	padding-right:2px;
+	padding-left:2px
 }
 
-.top-header .dropdown-menu.panel {min-width:300px;}
-.list-group-my-stores {max-height:280px; overflow-y:auto;}
+.list-group-my-stores {max-height:270px; overflow-y:auto;}
 
 @media (min-width:768px) {
-	.top-header .dropdown-menu.panel {min-width:320px;}
-	.list-group-my-stores {max-height:320px;}
+	.top-header .dropdown-menu {left:auto!important; width:340px!important}
+	.list-group-my-stores {max-height:300px;}
 }
 
 @media (min-width:992px) {
-	.top-header .dropdown-menu.panel {min-width:340px;}
-	.list-group-my-stores {max-height:350px;}
+	.top-header .dropdown-menu {width:360px!important}
+	.list-group-my-stores {max-height:330px;}
+}
+
+@media (min-width:1200px) {
+	.top-header .dropdown-menu {width:400px!important}
+	.list-group-my-stores {max-height:360px;}
+}
+
+@media (max-width:767px) {
+.top-header .logo #logo {position:absolute; top:16px; left:16px}
+.top-header .top-nav .nav-left,.top-header .top-nav .nav-right {font-size:24px;}
+.top-header .top-nav .nav-left {width:25%}
+.top-header .top-nav .nav-left>li {width:100%}
+.top-header .top-nav .nav-left>li.nav-profile>a {text-align:center}
+.top-header .top-nav .nav-right {width:75%}
+.top-header .top-nav .nav-right>li {width:33.333333%}
+.top-header .top-nav .nav-right>li>a {width:auto}
+.top-header .dropdown-menu {right:auto;}
 }

@@ -13534,7 +13534,7 @@ a.changelog-button:hover {
 	padding-right:5px;
 	padding-left:5px
 }
-
+.mb-2 {margin-bottom:.5rem}
 .mini-row{
 	margin-right:-2px;
 	margin-left:-2px
@@ -13545,6 +13545,9 @@ a.changelog-button:hover {
 }
 
 .list-group-my-stores {max-height:270px; overflow-y:auto;}
+
+.table-dynamic td:first-child,.table-dynamic th:first-child {width:1%}
+.table-dynamic .ui-checkbox {margin-right:-20px}
 
 @media (min-width:768px) {
 	.top-header .dropdown-menu {left:auto!important; width:340px!important}
@@ -13571,4 +13574,6 @@ a.changelog-button:hover {
 .top-header .top-nav .nav-right>li {width:33.333333%}
 .top-header .top-nav .nav-right>li>a {width:auto}
 .top-header .dropdown-menu {right:auto;}
+
+.table-dynamic td:not(:first-child),.table-dynamic th:not(:first-child) {font-size:12px}
 }

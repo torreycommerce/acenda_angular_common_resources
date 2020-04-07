@@ -13549,6 +13549,8 @@ a.changelog-button:hover {
 .table-dynamic td:first-child,.table-dynamic th:first-child {width:1%}
 .table-dynamic .ui-checkbox {margin-right:-20px}
 
+.query_block .list-group-item {padding:0}
+
 @media (min-width:768px) {
 	.top-header .dropdown-menu {left:auto!important; width:340px!important}
 	.list-group-my-stores {max-height:300px;}

@@ -104,10 +104,14 @@ angular.module("app.filters", [])
   };
 
 })
+
 .filter('titleCase', function() {
     return function(input) {
       input = input || '';
-      return input.replace(/_{1,}/g,' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      if (typeof input.replace !== "undefined") {
+        return input.replace(/_{1,}/g,' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      }
+      return input;
     };
 })
 

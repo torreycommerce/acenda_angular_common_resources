@@ -35,7 +35,7 @@ angular.module("app.directives")
                     if($scope.querymodel == "") {
                         $scope.querymodel = null;
                     }
-                        var tmpquery=$scope.querymodel;
+                        var tmpquery=angular.copy($scope.querymodel);
 
                     if(tmpquery) {
                         tmpquery=tmpquery.replace('&','%26');

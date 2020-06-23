@@ -38,7 +38,7 @@ angular.module("app.directives")
                         var tmpquery=angular.copy($scope.querymodel);
 
                     if(tmpquery) {
-                        tmpquery=tmpquery.replace('&','%26');
+                        tmpquery=tmpquery.replace(/&/g,'%26');
                     }
                     $element.find('.table-dynamic').scope().setTableName($scope.modelname);
                     $element.find('.table-dynamic').scope().query = angular.fromJson(tmpquery);

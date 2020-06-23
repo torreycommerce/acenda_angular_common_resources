@@ -35,12 +35,13 @@ angular.module("app.directives")
                     if($scope.querymodel == "") {
                         $scope.querymodel = null;
                     }
-                    if($scope.querymodel) {
-                        $scope.querymodel=$scope.querymodel.replace('&','%26');
+                        var tmpquery=$scope.querymodel;
 
+                    if(tmpquery) {
+                        tmpquery=tmpquery.replace('&','%26');
                     }
                     $element.find('.table-dynamic').scope().setTableName($scope.modelname);
-                    $element.find('.table-dynamic').scope().query = angular.fromJson($scope.querymodel);
+                    $element.find('.table-dynamic').scope().query = angular.fromJson(tmpquery);
                     $element.find('.table-dynamic').scope().loaded = false;
                     $element.find('.table-dynamic').scope().setContent();
                 }

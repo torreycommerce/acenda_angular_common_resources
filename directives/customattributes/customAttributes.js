@@ -79,15 +79,15 @@ angular.module("app.directives")
                                 }
 
                             }
-                            // if (!cntgeneral) {
-                            //     scope.groups.shift();
-                            //     for (var g in scope.groups) {
-                            //         $timeout(function () {
-                            //             scope.setActiveGroup(scope.groups[g]);
-                            //         }, 200);
-                            //         break;
-                            //     }
-                            // }
+                            if (!cntgeneral) {
+                                scope.groups.shift();
+                                // for (var g in scope.groups) {
+                                //     $timeout(function () {
+                                //         scope.setActiveGroup(scope.groups[g]);
+                                //     }, 200);
+                                //     break;
+                                // }
+                            }
                             scope.hasCustom = !jQuery.isEmptyObject(customattr);
                             scope.isEmpty = jQuery.isEmptyObject(customattr);
                             scope.customattr = customattr;

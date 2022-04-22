@@ -1,5 +1,5 @@
 angular.module("app.directives")
-    .directive('customAttribute', ["$http", "$timeout", function ($http, $timeout) {
+    .directive('customAttribute', ["$http", "$timeout","$window", function ($http, $timeout,$window) {
         return {
             templateUrl: 'templates/custom-attribute.html',
             restrict: 'E',
@@ -22,10 +22,11 @@ angular.module("app.directives")
                     scope.activeGroup[groupname] = true;
                 };
                 scope.init = function () {
+                    scope.loading=true;
+                    scope.isEmpty=true;                    
                     scope.activeGroup = {'general': true};
                     scope.groups = ['general'];
                     scope.customattr = {};
-
 
                     console.log(scope.hasCustom)
                     $http.get('/api/dataschema/' + attr.modelname).then(
@@ -118,16 +119,16 @@ angular.module("app.directives")
                                     81310: 'Magazine',
                                     99999: 'Other Exempt',
                                 };
-                                $('label:contains("Taxjar")').parent().find('option').each(function () {
+                                    $('label:contains("Taxjar")').parent().find('option').each(function () {
                                     var val = $(this).val().replace("number:", "");
                                     if (val in taxjar_codes) {
                                         $(this).attr('label', taxjar_codes[val]);
                                     }
                                 });
-                            });
-
-
+                               scope.loading=false;
+                            },500);
                         }, function (error) {
+                            scope.loading=false;
                             console.log(scope.customattr);
                         }
                     );
